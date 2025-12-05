@@ -1,0 +1,168 @@
+{
+  "questions": [
+    {
+      "id": "Q1",
+      "question": "What is the default rate by grade?",
+      "type": "aggregation",
+      "expected_backend": "cohort",
+      "expected_dimension": "grade",
+      "ground_truth": {
+        "source": "KG cohorts",
+        "key_metrics": ["defaultRate", "loanCount", "avgInterestRate"]
+      }
+    },
+    {
+      "id": "Q2",
+      "question": "Which term (36 or 60 months) has a higher default rate?",
+      "type": "comparative",
+      "expected_backend": "cohort",
+      "expected_dimension": "term",
+      "ground_truth": {
+        "source": "KG cohorts",
+        "expected_answer": "60 months has higher default rate (~0.355 vs ~0.178)"
+      }
+    },
+    {
+      "id": "Q3",
+      "question": "What is the default rate for grade B loans?",
+      "type": "factual",
+      "expected_backend": "cohort",
+      "expected_dimension": "grade",
+      "ground_truth": {
+        "source": "KG cohorts",
+        "expected_value": "~0.151 (15.1%)",
+        "tolerance": 0.02
+      }
+    },
+    {
+      "id": "Q4",
+      "question": "Compare default rates across income bands.",
+      "type": "aggregation",
+      "expected_backend": "cohort",
+      "expected_dimension": "income_band",
+      "ground_truth": {
+        "source": "KG cohorts",
+        "key_metrics": ["defaultRate", "loanCount"]
+      }
+    },
+    {
+      "id": "Q5",
+      "question": "Which loan purpose has the highest default rate?",
+      "type": "comparative",
+      "expected_backend": "cohort",
+      "expected_dimension": "purpose",
+      "ground_truth": {
+        "source": "KG cohorts",
+        "expected_answer": "small_business typically has highest default rate"
+      }
+    },
+    {
+      "id": "Q6",
+      "question": "How does default rate differ between borrowers who rent versus those with a mortgage?",
+      "type": "comparative",
+      "expected_backend": "cohort",
+      "expected_dimension": "home_ownership",
+      "ground_truth": {
+        "source": "KG cohorts",
+        "expected_answer": "RENT typically has higher default rate than MORTGAGE"
+      }
+    },
+    {
+      "id": "Q7",
+      "question": "What is the average interest rate for fully paid loans versus charged off loans?",
+      "type": "comparative",
+      "expected_backend": "cohort",
+      "expected_dimension": "status",
+      "ground_truth": {
+        "source": "KG cohorts",
+        "key_metrics": ["avgInterestRate"]
+      }
+    },
+    {
+      "id": "Q8",
+      "question": "Which three states have the highest average interest rates?",
+      "type": "ranking",
+      "expected_backend": "cohort",
+      "expected_dimension": "state",
+      "ground_truth": {
+        "source": "KG cohorts",
+        "key_metrics": ["avgInterestRate"]
+      }
+    },
+    {
+      "id": "Q9",
+      "question": "What is the default rate for grade C, 36-month loans?",
+      "type": "factual",
+      "expected_backend": "cohort",
+      "expected_dimension": "grade",
+      "ground_truth": {
+        "source": "KG cohorts",
+        "note": "May require combining grade and term cohorts"
+      }
+    },
+    {
+      "id": "Q10",
+      "question": "Should we approve a $15,000, 36-month loan for a borrower earning $80,000 with 18% DTI and grade B?",
+      "type": "prediction",
+      "expected_backend": "predict",
+      "ground_truth": {
+        "source": "ML model",
+        "note": "Requires full feature vector; default_probability should be calculated"
+      }
+    },
+    {
+      "id": "Q11",
+      "question": "What is the predicted default probability for a borrower with grade F, 60-month term, and $20,000 annual income?",
+      "type": "prediction",
+      "expected_backend": "predict",
+      "ground_truth": {
+        "source": "ML model",
+        "note": "Should return high default_probability (>0.67 for rejection)"
+      }
+    },
+    {
+      "id": "Q12",
+      "question": "Compare default rates for debt_consolidation versus credit_card loans.",
+      "type": "comparative",
+      "expected_backend": "cohort",
+      "expected_dimension": "purpose",
+      "ground_truth": {
+        "source": "KG cohorts",
+        "expected_answer": "debt_consolidation typically has higher default rate"
+      }
+    },
+    {
+      "id": "Q13",
+      "question": "What is the current employer of a specific borrower in the dataset?",
+      "type": "unanswerable",
+      "expected_backend": "unknown",
+      "ground_truth": {
+        "source": "N/A",
+        "expected_behavior": "System should indicate this information is not available in the dataset"
+      }
+    },
+    {
+      "id": "Q14",
+      "question": "What is the default rate for loans issued in 2015?",
+      "type": "factual",
+      "expected_backend": "cohort",
+      "expected_dimension": "status",
+      "ground_truth": {
+        "source": "KG cohorts",
+        "note": "May not be directly available if cohorts don't include temporal dimension"
+      }
+    },
+    {
+      "id": "Q15",
+      "question": "What is the average loan amount for different income bands?",
+      "type": "aggregation",
+      "expected_backend": "cohort",
+      "expected_dimension": "income_band",
+      "ground_truth": {
+        "source": "KG cohorts",
+        "key_metrics": ["avgLoanAmount", "loanCount"]
+      }
+    }
+  ]
+}
+

@@ -1,0 +1,936 @@
+@prefix ex: <http://example.org/loan#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Cohort a rdfs:Class .
+
+ex:Cohort_grade_A a ex:Cohort ;
+    ex:avgDTI 15.607868433602107 ;
+    ex:avgIncome 88882.97041660105 ;
+    ex:avgInterestRate 7.126175106740394 ;
+    ex:avgLoanAmount 13892.658426366626 ;
+    ex:cohortType "grade" ;
+    ex:defaultRate 0.07010306572408483 ;
+    ex:grade "A" ;
+    ex:loanCount 228592 .
+
+ex:Cohort_grade_B a ex:Cohort ;
+    ex:avgDTI 17.369628468929115 ;
+    ex:avgIncome 76476.69670625248 ;
+    ex:avgInterestRate 10.688393102844099 ;
+    ex:avgLoanAmount 13273.565132362111 ;
+    ex:cohortType "grade" ;
+    ex:defaultRate 0.1513983437343791 ;
+    ex:grade "B" ;
+    ex:loanCount 388102 .
+
+ex:Cohort_grade_C a ex:Cohort ;
+    ex:avgDTI 18.912585521913684 ;
+    ex:avgIncome 72797.29232706342 ;
+    ex:avgInterestRate 14.028167257601371 ;
+    ex:avgLoanAmount 14253.868031259879 ;
+    ex:cohortType "grade" ;
+    ex:defaultRate 0.24973414470366606 ;
+    ex:grade "C" ;
+    ex:loanCount 382727 .
+
+ex:Cohort_grade_D a ex:Cohort ;
+    ex:avgDTI 20.171601241089487 ;
+    ex:avgIncome 70223.30396288735 ;
+    ex:avgInterestRate 17.73256446372658 ;
+    ex:avgLoanAmount 15317.324718538659 ;
+    ex:cohortType "grade" ;
+    ex:defaultRate 0.33090725272136556 ;
+    ex:grade "D" ;
+    ex:loanCount 203758 .
+
+ex:Cohort_grade_E a ex:Cohort ;
+    ex:avgDTI 20.811170288564302 ;
+    ex:avgIncome 72025.0417443042 ;
+    ex:avgInterestRate 21.15627549363641 ;
+    ex:avgLoanAmount 17621.191274289005 ;
+    ex:cohortType "grade" ;
+    ex:defaultRate 0.4072801550306395 ;
+    ex:grade "E" ;
+    ex:loanCount 95465 .
+
+ex:Cohort_grade_F a ex:Cohort ;
+    ex:avgDTI 21.004682304853127 ;
+    ex:avgIncome 73229.01456150516 ;
+    ex:avgInterestRate 24.930770567786787 ;
+    ex:avgLoanAmount 19091.775172287613 ;
+    ex:cohortType "grade" ;
+    ex:defaultRate 0.47020796487162286 ;
+    ex:grade "F" ;
+    ex:loanCount 32794 .
+
+ex:Cohort_grade_G a ex:Cohort ;
+    ex:avgDTI 21.447147654528283 ;
+    ex:avgIncome 76664.1190781332 ;
+    ex:avgInterestRate 27.609372836916624 ;
+    ex:avgLoanAmount 20468.479286837966 ;
+    ex:cohortType "grade" ;
+    ex:defaultRate 0.518510749868904 ;
+    ex:grade "G" ;
+    ex:loanCount 9535 .
+
+ex:Cohort_home_ownership_ANY a ex:Cohort ;
+    ex:avgDTI 18.488793103448277 ;
+    ex:avgIncome 80156.1154137931 ;
+    ex:avgInterestRate 13.886379310344829 ;
+    ex:avgLoanAmount 14090.258620689656 ;
+    ex:cohortType "home_ownership" ;
+    ex:defaultRate 0.25862068965517243 ;
+    ex:homeOwnership "ANY" ;
+    ex:loanCount 290 .
+
+ex:Cohort_home_ownership_MORTGAGE a ex:Cohort ;
+    ex:avgDTI 18.39242564166877 ;
+    ex:avgIncome 86153.58427306754 ;
+    ex:avgInterestRate 12.992360676438247 ;
+    ex:avgLoanAmount 16026.737088705488 ;
+    ex:cohortType "home_ownership" ;
+    ex:defaultRate 0.19230095339367062 ;
+    ex:homeOwnership "MORTGAGE" ;
+    ex:loanCount 662056 .
+
+ex:Cohort_home_ownership_NONE a ex:Cohort ;
+    ex:avgDTI 19.08924528301887 ;
+    ex:avgIncome 62986.755102040814 ;
+    ex:avgInterestRate 14.320754716981131 ;
+    ex:avgLoanAmount 13505.188679245282 ;
+    ex:cohortType "home_ownership" ;
+    ex:defaultRate 0.1509433962264151 ;
+    ex:homeOwnership "NONE" ;
+    ex:loanCount 53 .
+
+ex:Cohort_home_ownership_OTHER a ex:Cohort ;
+    ex:avgDTI 14.351538461538462 ;
+    ex:avgIncome 66667.02197802198 ;
+    ex:avgInterestRate 13.462142857142858 ;
+    ex:avgLoanAmount 10810.164835164835 ;
+    ex:cohortType "home_ownership" ;
+    ex:defaultRate 0.2087912087912088 ;
+    ex:homeOwnership "OTHER" ;
+    ex:loanCount 182 .
+
+ex:Cohort_home_ownership_OWN a ex:Cohort ;
+    ex:avgDTI 18.728698653397004 ;
+    ex:avgIncome 71309.16652628516 ;
+    ex:avgInterestRate 13.371966380499027 ;
+    ex:avgLoanAmount 13910.572958890252 ;
+    ex:cohortType "home_ownership" ;
+    ex:defaultRate 0.23108210170384075 ;
+    ex:homeOwnership "OWN" ;
+    ex:loanCount 144321 .
+
+ex:Cohort_home_ownership_RENT a ex:Cohort ;
+    ex:avgDTI 18.0662386886302 ;
+    ex:avgIncome 65175.51282670282 ;
+    ex:avgInterestRate 13.707990960003444 ;
+    ex:avgLoanAmount 12698.930198419312 ;
+    ex:cohortType "home_ownership" ;
+    ex:defaultRate 0.25511214801028326 ;
+    ex:homeOwnership "RENT" ;
+    ex:loanCount 534071 .
+
+ex:Cohort_income_band_100k_150k a ex:Cohort ;
+    ex:avgDTI 15.962965197143259 ;
+    ex:avgIncome 116888.87966009782 ;
+    ex:avgInterestRate 12.653829147718097 ;
+    ex:avgLoanAmount 19731.120062302376 ;
+    ex:cohortType "income_band" ;
+    ex:defaultRate 0.1863341095084051 ;
+    ex:incomeBand "100k-150k" ;
+    ex:loanCount 191967 .
+
+ex:Cohort_income_band_50k_75k a ex:Cohort ;
+    ex:avgDTI 18.877274749537452 ;
+    ex:avgIncome 60605.12507089233 ;
+    ex:avgInterestRate 13.436495845958131 ;
+    ex:avgLoanAmount 13552.724172567452 ;
+    ex:cohortType "income_band" ;
+    ex:defaultRate 0.22776041827067722 ;
+    ex:incomeBand "50k-75k" ;
+    ex:loanCount 422119 .
+
+ex:Cohort_income_band_75k_100k a ex:Cohort ;
+    ex:avgDTI 17.46704821081874 ;
+    ex:avgIncome 84830.511071291 ;
+    ex:avgInterestRate 13.049998793854103 ;
+    ex:avgLoanAmount 16944.264678990105 ;
+    ex:cohortType "income_band" ;
+    ex:defaultRate 0.20651163152631927 ;
+    ex:incomeBand "75k-100k" ;
+    ex:loanCount 257017 .
+
+ex:Cohort_income_band__150k a ex:Cohort ;
+    ex:avgDTI 13.117870168720831 ;
+    ex:avgIncome 218828.26622184995 ;
+    ex:avgInterestRate 12.223692353715448 ;
+    ex:avgLoanAmount 23193.590403254755 ;
+    ex:cohortType "income_band" ;
+    ex:defaultRate 0.17578078257747995 ;
+    ex:incomeBand ">150k" ;
+    ex:loanCount 83570 .
+
+ex:Cohort_income_band__50k a ex:Cohort ;
+    ex:avgDTI 20.50157685272033 ;
+    ex:avgIncome 36409.851309332735 ;
+    ex:avgInterestRate 13.93548842868237 ;
+    ex:avgLoanAmount 9332.762813875226 ;
+    ex:cohortType "income_band" ;
+    ex:defaultRate 0.2520165674346363 ;
+    ex:incomeBand "<50k" ;
+    ex:loanCount 386300 .
+
+ex:Cohort_purpose_car a ex:Cohort ;
+    ex:avgDTI 14.927209318354125 ;
+    ex:avgIncome 69661.530104059 ;
+    ex:avgInterestRate 12.148829853214803 ;
+    ex:avgLoanAmount 8893.47736200124 ;
+    ex:cohortType "purpose" ;
+    ex:defaultRate 0.16587416442698644 ;
+    ex:loanCount 14511 ;
+    ex:purpose "car" .
+
+ex:Cohort_purpose_credit_card a ex:Cohort ;
+    ex:avgDTI 18.50929114772257 ;
+    ex:avgIncome 76045.10291282278 ;
+    ex:avgInterestRate 11.856570881684412 ;
+    ex:avgLoanAmount 14838.897082699572 ;
+    ex:cohortType "purpose" ;
+    ex:defaultRate 0.18879907029207185 ;
+    ex:loanCount 292565 ;
+    ex:purpose "credit_card" .
+
+ex:Cohort_purpose_debt_consolidation a ex:Cohort ;
+    ex:avgDTI 18.970314257020377 ;
+    ex:avgIncome 74935.15194819917 ;
+    ex:avgInterestRate 13.698809040813078 ;
+    ex:avgLoanAmount 15283.015061602222 ;
+    ex:cohortType "purpose" ;
+    ex:defaultRate 0.23304077199217327 ;
+    ex:loanCount 778868 ;
+    ex:purpose "debt_consolidation" .
+
+ex:Cohort_purpose_educational a ex:Cohort ;
+    ex:avgDTI 11.25531914893617 ;
+    ex:avgIncome 51264.28978723404 ;
+    ex:avgInterestRate 12.12014184397163 ;
+    ex:avgLoanAmount 6616.075650118203 ;
+    ex:cohortType "purpose" ;
+    ex:defaultRate 0.20803782505910165 ;
+    ex:loanCount 423 ;
+    ex:purpose "educational" .
+
+ex:Cohort_purpose_home_improvement a ex:Cohort ;
+    ex:avgDTI 16.039944132151604 ;
+    ex:avgIncome 91476.18125933672 ;
+    ex:avgInterestRate 12.884075750959529 ;
+    ex:avgLoanAmount 14234.634058054286 ;
+    ex:cohortType "purpose" ;
+    ex:defaultRate 0.20074234101721403 ;
+    ex:loanCount 87022 ;
+    ex:purpose "home_improvement" .
+
+ex:Cohort_purpose_house a ex:Cohort ;
+    ex:avgDTI 14.581151374265009 ;
+    ex:avgIncome 82691.64551804264 ;
+    ex:avgInterestRate 15.499260524876982 ;
+    ex:avgLoanAmount 15467.09950792783 ;
+    ex:cohortType "purpose" ;
+    ex:defaultRate 0.25 ;
+    ex:loanCount 7316 ;
+    ex:purpose "house" .
+
+ex:Cohort_purpose_major_purchase a ex:Cohort ;
+    ex:avgDTI 14.808308201419214 ;
+    ex:avgIncome 78332.13907146512 ;
+    ex:avgInterestRate 12.836612655637046 ;
+    ex:avgLoanAmount 11982.057820228552 ;
+    ex:cohortType "purpose" ;
+    ex:defaultRate 0.2111888111888112 ;
+    ex:loanCount 29315 ;
+    ex:purpose "major_purchase" .
+
+ex:Cohort_purpose_medical a ex:Cohort ;
+    ex:avgDTI 17.623969426424306 ;
+    ex:avgIncome 73100.81050208668 ;
+    ex:avgInterestRate 14.105047833065811 ;
+    ex:avgLoanAmount 9064.09470304976 ;
+    ex:cohortType "purpose" ;
+    ex:defaultRate 0.24443017656500804 ;
+    ex:loanCount 15575 ;
+    ex:purpose "medical" .
+
+ex:Cohort_purpose_moving a ex:Cohort ;
+    ex:avgDTI 16.54156453990314 ;
+    ex:avgIncome 69009.44283564815 ;
+    ex:avgInterestRate 15.18313446969697 ;
+    ex:avgLoanAmount 7914.775357744108 ;
+    ex:cohortType "purpose" ;
+    ex:defaultRate 0.25789141414141414 ;
+    ex:loanCount 9504 ;
+    ex:purpose "moving" .
+
+ex:Cohort_purpose_other a ex:Cohort ;
+    ex:avgDTI 16.968286029846148 ;
+    ex:avgIncome 71644.64431595842 ;
+    ex:avgInterestRate 14.676272755282822 ;
+    ex:avgLoanAmount 9931.918055305929 ;
+    ex:cohortType "purpose" ;
+    ex:defaultRate 0.23777184378771152 ;
+    ex:loanCount 77894 ;
+    ex:purpose "other" .
+
+ex:Cohort_purpose_renewable_energy a ex:Cohort ;
+    ex:avgDTI 16.215160599571735 ;
+    ex:avgIncome 74134.20033190578 ;
+    ex:avgInterestRate 15.232569593147751 ;
+    ex:avgLoanAmount 10109.395074946468 ;
+    ex:cohortType "purpose" ;
+    ex:defaultRate 0.25374732334047106 ;
+    ex:loanCount 934 ;
+    ex:purpose "renewable_energy" .
+
+ex:Cohort_purpose_small_business a ex:Cohort ;
+    ex:avgDTI 14.563685652395513 ;
+    ex:avgIncome 91517.15026815287 ;
+    ex:avgInterestRate 15.979768789808917 ;
+    ex:avgLoanAmount 15734.369426751593 ;
+    ex:cohortType "purpose" ;
+    ex:defaultRate 0.3226751592356688 ;
+    ex:loanCount 15700 ;
+    ex:purpose "small_business" .
+
+ex:Cohort_purpose_vacation a ex:Cohort ;
+    ex:avgDTI 17.650284602556976 ;
+    ex:avgIncome 69543.78474766563 ;
+    ex:avgInterestRate 13.733586038239217 ;
+    ex:avgLoanAmount 6247.615606936416 ;
+    ex:cohortType "purpose" ;
+    ex:defaultRate 0.21465095598043574 ;
+    ex:loanCount 8996 ;
+    ex:purpose "vacation" .
+
+ex:Cohort_purpose_wedding a ex:Cohort ;
+    ex:avgDTI 13.976017021276595 ;
+    ex:avgIncome 69466.18760425532 ;
+    ex:avgInterestRate 14.157136170212764 ;
+    ex:avgLoanAmount 10465.851063829787 ;
+    ex:cohortType "purpose" ;
+    ex:defaultRate 0.12425531914893617 ;
+    ex:loanCount 2350 ;
+    ex:purpose "wedding" .
+
+ex:Cohort_state_AK a ex:Cohort ;
+    ex:avgDTI 18.671969172695817 ;
+    ex:avgIncome 77610.24910062892 ;
+    ex:avgInterestRate 13.571355345911948 ;
+    ex:avgLoanAmount 16527.916666666668 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.2188679245283019 ;
+    ex:loanCount 3180 ;
+    ex:state "AK" .
+
+ex:Cohort_state_AL a ex:Cohort ;
+    ex:avgDTI 20.1719124368535 ;
+    ex:avgIncome 68889.92225395297 ;
+    ex:avgInterestRate 13.805915950219443 ;
+    ex:avgLoanAmount 14036.955149401792 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.2590031864366019 ;
+    ex:loanCount 16633 ;
+    ex:state "AL" .
+
+ex:Cohort_state_AR a ex:Cohort ;
+    ex:avgDTI 20.21761015086422 ;
+    ex:avgIncome 66426.30670328572 ;
+    ex:avgInterestRate 13.586715270148806 ;
+    ex:avgLoanAmount 13540.242684510136 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.2638569859183062 ;
+    ex:loanCount 10013 ;
+    ex:state "AR" .
+
+ex:Cohort_state_AZ a ex:Cohort ;
+    ex:avgDTI 18.452749046857704 ;
+    ex:avgIncome 72771.57481128596 ;
+    ex:avgInterestRate 13.161286574870912 ;
+    ex:avgLoanAmount 13945.621004425866 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.21600688468158347 ;
+    ex:loanCount 32536 ;
+    ex:state "AZ" .
+
+ex:Cohort_state_CA a ex:Cohort ;
+    ex:avgDTI 16.870689790729614 ;
+    ex:avgIncome 81977.43845871551 ;
+    ex:avgInterestRate 13.224217465202813 ;
+    ex:avgLoanAmount 14729.909376738584 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.21600032666227714 ;
+    ex:loanCount 195921 ;
+    ex:state "CA" .
+
+ex:Cohort_state_CO a ex:Cohort ;
+    ex:avgDTI 18.436489668510163 ;
+    ex:avgIncome 75498.38193657792 ;
+    ex:avgInterestRate 13.103819908428015 ;
+    ex:avgLoanAmount 14687.785314566729 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.1721214176700017 ;
+    ex:loanCount 29485 ;
+    ex:state "CO" .
+
+ex:Cohort_state_CT a ex:Cohort ;
+    ex:avgDTI 17.060373736860814 ;
+    ex:avgIncome 84663.83756346467 ;
+    ex:avgInterestRate 13.21345755483347 ;
+    ex:avgLoanAmount 14647.141551584078 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.1988728675873274 ;
+    ex:loanCount 19696 ;
+    ex:state "CT" .
+
+ex:Cohort_state_DC a ex:Cohort ;
+    ex:avgDTI 15.391303468208093 ;
+    ex:avgIncome 91213.46435549133 ;
+    ex:avgInterestRate 12.682817919075145 ;
+    ex:avgLoanAmount 15271.856936416185 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.15144508670520232 ;
+    ex:loanCount 3460 ;
+    ex:state "DC" .
+
+ex:Cohort_state_DE a ex:Cohort ;
+    ex:avgDTI 18.823403973509937 ;
+    ex:avgIncome 75326.01824417373 ;
+    ex:avgInterestRate 13.460259533898306 ;
+    ex:avgLoanAmount 14252.41657838983 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.22060381355932204 ;
+    ex:loanCount 3776 ;
+    ex:state "DE" .
+
+ex:Cohort_state_FL a ex:Cohort ;
+    ex:avgDTI 18.502783959008678 ;
+    ex:avgIncome 71357.92428390712 ;
+    ex:avgInterestRate 13.404388035671346 ;
+    ex:avgLoanAmount 13790.743693218054 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.23880565806943993 ;
+    ex:loanCount 95651 ;
+    ex:state "FL" .
+
+ex:Cohort_state_GA a ex:Cohort ;
+    ex:avgDTI 18.752779986133582 ;
+    ex:avgIncome 76036.58066104437 ;
+    ex:avgInterestRate 13.384522874306839 ;
+    ex:avgLoanAmount 14661.58387245841 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.20616913123844732 ;
+    ex:loanCount 43280 ;
+    ex:state "GA" .
+
+ex:Cohort_state_HI a ex:Cohort ;
+    ex:avgDTI 19.39190984578885 ;
+    ex:avgIncome 72221.31704862141 ;
+    ex:avgInterestRate 13.984014230655204 ;
+    ex:avgLoanAmount 15229.191372665284 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.2232434034983694 ;
+    ex:loanCount 6746 ;
+    ex:state "HI" .
+
+ex:Cohort_state_IA a ex:Cohort ;
+    ex:avgDTI 13.656428571428572 ;
+    ex:avgIncome 44756.21428571428 ;
+    ex:avgInterestRate 12.631428571428572 ;
+    ex:avgLoanAmount 8148.214285714285 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.21428571428571427 ;
+    ex:loanCount 14 ;
+    ex:state "IA" .
+
+ex:Cohort_state_ID a ex:Cohort ;
+    ex:avgDTI 22.584444444444443 ;
+    ex:avgIncome 62177.80846106682 ;
+    ex:avgInterestRate 14.043825873697118 ;
+    ex:avgLoanAmount 13658.200490496627 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.22808093194359289 ;
+    ex:loanCount 1631 ;
+    ex:state "ID" .
+
+ex:Cohort_state_IL a ex:Cohort ;
+    ex:avgDTI 18.09291263270673 ;
+    ex:avgIncome 77943.08593868687 ;
+    ex:avgInterestRate 13.146308162748573 ;
+    ex:avgLoanAmount 14760.984457472294 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.20109849443935882 ;
+    ex:loanCount 51343 ;
+    ex:state "IL" .
+
+ex:Cohort_state_IN a ex:Cohort ;
+    ex:avgDTI 19.798781167293495 ;
+    ex:avgIncome 68986.51400826254 ;
+    ex:avgInterestRate 13.471921737919509 ;
+    ex:avgLoanAmount 14098.961379566448 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.2350183354221789 ;
+    ex:loanCount 21543 ;
+    ex:state "IN" .
+
+ex:Cohort_state_KS a ex:Cohort ;
+    ex:avgDTI 19.51666128018673 ;
+    ex:avgIncome 69771.30944982947 ;
+    ex:avgInterestRate 13.198543349488423 ;
+    ex:avgLoanAmount 14101.904954227248 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.18443726440495423 ;
+    ex:loanCount 11142 ;
+    ex:state "KS" .
+
+ex:Cohort_state_KY a ex:Cohort ;
+    ex:avgDTI 19.550692813527476 ;
+    ex:avgIncome 67567.17786960946 ;
+    ex:avgInterestRate 13.4057814823511 ;
+    ex:avgLoanAmount 13690.246145417546 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.2301009626672928 ;
+    ex:loanCount 12777 ;
+    ex:state "KY" .
+
+ex:Cohort_state_LA a ex:Cohort ;
+    ex:avgDTI 19.366571317879515 ;
+    ex:avgIncome 74778.13750112969 ;
+    ex:avgInterestRate 13.444095926667096 ;
+    ex:avgLoanAmount 14350.637466916274 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.2560196242979795 ;
+    ex:loanCount 15491 ;
+    ex:state "LA" .
+
+ex:Cohort_state_MA a ex:Cohort ;
+    ex:avgDTI 16.920721475966985 ;
+    ex:avgIncome 81262.1925138345 ;
+    ex:avgInterestRate 12.853453933529659 ;
+    ex:avgLoanAmount 15324.398886767418 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.2122585029610692 ;
+    ex:loanCount 30901 ;
+    ex:state "MA" .
+
+ex:Cohort_state_MD a ex:Cohort ;
+    ex:avgDTI 17.78764598947536 ;
+    ex:avgIncome 84284.8231020187 ;
+    ex:avgInterestRate 13.462689351659916 ;
+    ex:avgLoanAmount 15195.15259750614 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.2403928947284498 ;
+    ex:loanCount 31357 ;
+    ex:state "MD" .
+
+ex:Cohort_state_ME a ex:Cohort ;
+    ex:avgDTI 19.871008024072218 ;
+    ex:avgIncome 67613.71458145363 ;
+    ex:avgInterestRate 12.979884711779448 ;
+    ex:avgLoanAmount 14026.766917293233 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.17142857142857143 ;
+    ex:loanCount 1995 ;
+    ex:state "ME" .
+
+ex:Cohort_state_MI a ex:Cohort ;
+    ex:avgDTI 18.800549268876665 ;
+    ex:avgIncome 70058.66238956968 ;
+    ex:avgInterestRate 13.42559532630379 ;
+    ex:avgLoanAmount 13844.729267597606 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.22390994585351953 ;
+    ex:loanCount 35090 ;
+    ex:state "MI" .
+
+ex:Cohort_state_MN a ex:Cohort ;
+    ex:avgDTI 18.595308735255845 ;
+    ex:avgIncome 71271.58644269107 ;
+    ex:avgInterestRate 13.189155160112477 ;
+    ex:avgLoanAmount 14005.219918579762 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.21802996600495236 ;
+    ex:loanCount 23827 ;
+    ex:state "MN" .
+
+ex:Cohort_state_MO a ex:Cohort ;
+    ex:avgDTI 19.51172381266802 ;
+    ex:avgIncome 68566.00652680213 ;
+    ex:avgInterestRate 13.30278723303946 ;
+    ex:avgLoanAmount 13927.81222007449 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.23567960020743953 ;
+    ex:loanCount 21211 ;
+    ex:state "MO" .
+
+ex:Cohort_state_MS a ex:Cohort ;
+    ex:avgDTI 20.67161013116237 ;
+    ex:avgIncome 68778.86778749058 ;
+    ex:avgInterestRate 13.670318010550112 ;
+    ex:avgLoanAmount 14106.891484551621 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.29706103993971367 ;
+    ex:loanCount 6635 ;
+    ex:state "MS" .
+
+ex:Cohort_state_MT a ex:Cohort ;
+    ex:avgDTI 20.137011646373743 ;
+    ex:avgIncome 62729.01692673896 ;
+    ex:avgInterestRate 13.122179317640835 ;
+    ex:avgLoanAmount 13461.485056863263 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.1864586088336419 ;
+    ex:loanCount 3781 ;
+    ex:state "MT" .
+
+ex:Cohort_state_NC a ex:Cohort ;
+    ex:avgDTI 18.81466787214806 ;
+    ex:avgIncome 72249.5889776171 ;
+    ex:avgInterestRate 13.474629964378755 ;
+    ex:avgLoanAmount 14257.196023180393 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.22973044818969643 ;
+    ex:loanCount 37618 ;
+    ex:state "NC" .
+
+ex:Cohort_state_ND a ex:Cohort ;
+    ex:avgDTI 20.79942893401015 ;
+    ex:avgIncome 75830.10700253485 ;
+    ex:avgInterestRate 13.68226235741445 ;
+    ex:avgLoanAmount 14709.173003802282 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.2420785804816223 ;
+    ex:loanCount 1578 ;
+    ex:state "ND" .
+
+ex:Cohort_state_NE a ex:Cohort ;
+    ex:avgDTI 20.178553777028924 ;
+    ex:avgIncome 64387.190311535225 ;
+    ex:avgInterestRate 13.60702217232669 ;
+    ex:avgLoanAmount 13425.210496772383 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.2829076620825147 ;
+    ex:loanCount 3563 ;
+    ex:state "NE" .
+
+ex:Cohort_state_NH a ex:Cohort ;
+    ex:avgDTI 19.021067082683306 ;
+    ex:avgIncome 77440.15758265751 ;
+    ex:avgInterestRate 12.937715221459763 ;
+    ex:avgLoanAmount 14407.21303805365 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.16625077978789768 ;
+    ex:loanCount 6412 ;
+    ex:state "NH" .
+
+ex:Cohort_state_NJ a ex:Cohort ;
+    ex:avgDTI 16.933181526619627 ;
+    ex:avgIncome 86231.07970580325 ;
+    ex:avgInterestRate 13.223144512258196 ;
+    ex:avgLoanAmount 15229.011585807386 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.23413675390503777 ;
+    ex:loanCount 48335 ;
+    ex:state "NJ" .
+
+ex:Cohort_state_NM a ex:Cohort ;
+    ex:avgDTI 20.28794993878384 ;
+    ex:avgIncome 70895.7678882241 ;
+    ex:avgInterestRate 13.34422355180854 ;
+    ex:avgLoanAmount 14339.866059287462 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.23470220288278487 ;
+    ex:loanCount 7354 ;
+    ex:state "NM" .
+
+ex:Cohort_state_NV a ex:Cohort ;
+    ex:avgDTI 18.53424750161587 ;
+    ex:avgIncome 71767.66776022258 ;
+    ex:avgInterestRate 13.453279674069657 ;
+    ex:avgLoanAmount 13791.816962289462 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.23828687832265116 ;
+    ex:loanCount 20127 ;
+    ex:state "NV" .
+
+ex:Cohort_state_NY a ex:Cohort ;
+    ex:avgDTI 16.558342506254263 ;
+    ex:avgIncome 79336.46076193941 ;
+    ex:avgInterestRate 13.461952626121128 ;
+    ex:avgLoanAmount 14357.238661378646 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.24485600451179798 ;
+    ex:loanCount 109934 ;
+    ex:state "NY" .
+
+ex:Cohort_state_OH a ex:Cohort ;
+    ex:avgDTI 19.658910287384092 ;
+    ex:avgIncome 67551.28357717967 ;
+    ex:avgInterestRate 13.33803105590062 ;
+    ex:avgLoanAmount 13724.399585921325 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.2249597423510467 ;
+    ex:loanCount 43470 ;
+    ex:state "OH" .
+
+ex:Cohort_state_OK a ex:Cohort ;
+    ex:avgDTI 19.822757687576875 ;
+    ex:avgIncome 70614.32007868207 ;
+    ex:avgInterestRate 13.502364560281945 ;
+    ex:avgLoanAmount 14309.282026063438 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.25817555938037867 ;
+    ex:loanCount 12201 ;
+    ex:state "OK" .
+
+ex:Cohort_state_OR a ex:Cohort ;
+    ex:avgDTI 17.88039499509323 ;
+    ex:avgIncome 67302.12640733247 ;
+    ex:avgInterestRate 13.138747471031818 ;
+    ex:avgLoanAmount 13592.653730611244 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.16148611366562443 ;
+    ex:loanCount 16311 ;
+    ex:state "OR" .
+
+ex:Cohort_state_PA a ex:Cohort ;
+    ex:avgDTI 19.1066304945962 ;
+    ex:avgIncome 71777.79572676658 ;
+    ex:avgInterestRate 13.406827094474153 ;
+    ex:avgLoanAmount 14087.476618032173 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.22990251094826258 ;
+    ex:loanCount 45441 ;
+    ex:state "PA" .
+
+ex:Cohort_state_RI a ex:Cohort ;
+    ex:avgDTI 17.48081048663468 ;
+    ex:avgIncome 72405.60132750943 ;
+    ex:avgInterestRate 13.199330250085646 ;
+    ex:avgLoanAmount 13693.007022953067 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.19938335046248715 ;
+    ex:loanCount 5838 ;
+    ex:state "RI" .
+
+ex:Cohort_state_SC a ex:Cohort ;
+    ex:avgDTI 19.375191786861496 ;
+    ex:avgIncome 72606.19994898602 ;
+    ex:avgInterestRate 13.43849477264139 ;
+    ex:avgLoanAmount 14235.986900113365 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.18503589872779946 ;
+    ex:loanCount 15878 ;
+    ex:state "SC" .
+
+ex:Cohort_state_SD a ex:Cohort ;
+    ex:avgDTI 20.687116363636363 ;
+    ex:avgIncome 61976.163770909094 ;
+    ex:avgInterestRate 13.453036363636363 ;
+    ex:avgLoanAmount 13531.50909090909 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.2330909090909091 ;
+    ex:loanCount 2750 ;
+    ex:state "SD" .
+
+ex:Cohort_state_TN a ex:Cohort ;
+    ex:avgDTI 19.942017578510765 ;
+    ex:avgIncome 68999.63193179014 ;
+    ex:avgInterestRate 13.584355658654559 ;
+    ex:avgLoanAmount 14226.616405902967 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.23843837915206553 ;
+    ex:loanCount 20261 ;
+    ex:state "TN" .
+
+ex:Cohort_state_TX a ex:Cohort ;
+    ex:avgDTI 19.32587787928192 ;
+    ex:avgIncome 81323.88068274518 ;
+    ex:avgInterestRate 13.23130449033104 ;
+    ex:avgLoanAmount 15245.43910921738 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.2210386394260534 ;
+    ex:loanCount 109836 ;
+    ex:state "TX" .
+
+ex:Cohort_state_UT a ex:Cohort ;
+    ex:avgDTI 19.112136340852132 ;
+    ex:avgIncome 73968.02822981366 ;
+    ex:avgInterestRate 13.378940092165898 ;
+    ex:avgLoanAmount 14595.77489481066 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.18673612502504508 ;
+    ex:loanCount 9982 ;
+    ex:state "UT" .
+
+ex:Cohort_state_VA a ex:Cohort ;
+    ex:avgDTI 18.408264286279373 ;
+    ex:avgIncome 82358.365609396 ;
+    ex:avgInterestRate 13.338528380480344 ;
+    ex:avgLoanAmount 15367.837652579685 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.22132292847538954 ;
+    ex:loanCount 37931 ;
+    ex:state "VA" .
+
+ex:Cohort_state_VT a ex:Cohort ;
+    ex:avgDTI 20.008906666666665 ;
+    ex:avgIncome 65377.04025523809 ;
+    ex:avgInterestRate 12.959314285714285 ;
+    ex:avgLoanAmount 13312.647619047619 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.1619047619047619 ;
+    ex:loanCount 2625 ;
+    ex:state "VT" .
+
+ex:Cohort_state_WA a ex:Cohort ;
+    ex:avgDTI 18.141048762811888 ;
+    ex:avgIncome 75778.77603973373 ;
+    ex:avgInterestRate 13.366010071396543 ;
+    ex:avgLoanAmount 14795.022936570896 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.17618045735177457 ;
+    ex:loanCount 28993 ;
+    ex:state "WA" .
+
+ex:Cohort_state_WI a ex:Cohort ;
+    ex:avgDTI 19.254178066704352 ;
+    ex:avgIncome 67261.56320843224 ;
+    ex:avgInterestRate 13.077008590482649 ;
+    ex:avgLoanAmount 13839.55860743755 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.20651068158697863 ;
+    ex:loanCount 17694 ;
+    ex:state "WI" .
+
+ex:Cohort_state_WV a ex:Cohort ;
+    ex:avgDTI 19.904622719734657 ;
+    ex:avgIncome 67174.23057213929 ;
+    ex:avgInterestRate 13.224309701492537 ;
+    ex:avgLoanAmount 14131.094527363184 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.17060530679933664 ;
+    ex:loanCount 4824 ;
+    ex:state "WV" .
+
+ex:Cohort_state_WY a ex:Cohort ;
+    ex:avgDTI 20.32358028945555 ;
+    ex:avgIncome 73372.39436250861 ;
+    ex:avgInterestRate 13.332987594762233 ;
+    ex:avgLoanAmount 15052.127842866988 ;
+    ex:cohortType "state" ;
+    ex:defaultRate 0.1874569262577533 ;
+    ex:loanCount 2902 ;
+    ex:state "WY" .
+
+ex:Cohort_status_Charged_Off a ex:Cohort ;
+    ex:avgDTI 20.161590103710726 ;
+    ex:avgIncome 70327.77923544361 ;
+    ex:avgInterestRate 15.712086602587377 ;
+    ex:avgLoanAmount 15548.979381246298 ;
+    ex:cohortType "status" ;
+    ex:defaultRate 1.0 ;
+    ex:loanCount 261655 ;
+    ex:loanStatus "Charged Off" .
+
+ex:Cohort_status_Default a ex:Cohort ;
+    ex:avgDTI 21.84161290322581 ;
+    ex:avgIncome 66074.19354838709 ;
+    ex:avgInterestRate 16.72967741935484 ;
+    ex:avgLoanAmount 15800.0 ;
+    ex:cohortType "status" ;
+    ex:defaultRate 1.0 ;
+    ex:loanCount 31 ;
+    ex:loanStatus "Default" .
+
+ex:Cohort_status_Does_not_meet_the_credit_policy__Status_Charged_Off a ex:Cohort ;
+    ex:avgDTI 14.343731931668856 ;
+    ex:avgIncome 69525.91503285151 ;
+    ex:avgInterestRate 14.597148488830486 ;
+    ex:avgLoanAmount 9527.233902759526 ;
+    ex:cohortType "status" ;
+    ex:defaultRate 1.0 ;
+    ex:loanCount 761 ;
+    ex:loanStatus "Does not meet the credit policy. Status:Charged Off" .
+
+ex:Cohort_status_Does_not_meet_the_credit_policy__Status_Fully_Paid a ex:Cohort ;
+    ex:avgDTI 14.107173038229377 ;
+    ex:avgIncome 72145.41827116936 ;
+    ex:avgInterestRate 13.97864185110664 ;
+    ex:avgLoanAmount 8853.231891348089 ;
+    ex:cohortType "status" ;
+    ex:defaultRate 0.0 ;
+    ex:loanCount 1988 ;
+    ex:loanStatus "Does not meet the credit policy. Status:Fully Paid" .
+
+ex:Cohort_status_Fully_Paid a ex:Cohort ;
+    ex:avgDTI 17.780909127562396 ;
+    ex:avgIncome 77623.32637586952 ;
+    ex:avgInterestRate 12.640755370688861 ;
+    ex:avgLoanAmount 14132.49369932588 ;
+    ex:cohortType "status" ;
+    ex:defaultRate 0.0 ;
+    ex:loanCount 1041952 ;
+    ex:loanStatus "Fully Paid" .
+
+ex:Cohort_status_In_Grace_Period a ex:Cohort ;
+    ex:avgDTI 20.028044936284374 ;
+    ex:avgIncome 81109.84476094726 ;
+    ex:avgInterestRate 15.228197050938338 ;
+    ex:avgLoanAmount 17696.062332439677 ;
+    ex:cohortType "status" ;
+    ex:defaultRate 1.0 ;
+    ex:loanCount 8952 ;
+    ex:loanStatus "In Grace Period" .
+
+ex:Cohort_status_Late__16_30_days_ a ex:Cohort ;
+    ex:avgDTI 19.98891928130866 ;
+    ex:avgIncome 79393.47950762644 ;
+    ex:avgInterestRate 15.494613326197486 ;
+    ex:avgLoanAmount 16983.241905271607 ;
+    ex:cohortType "status" ;
+    ex:defaultRate 1.0 ;
+    ex:loanCount 3737 ;
+    ex:loanStatus "Late (16-30 days)" .
+
+ex:Cohort_status_Late__31_120_days_ a ex:Cohort ;
+    ex:avgDTI 20.166558141661714 ;
+    ex:avgIncome 76469.19262090696 ;
+    ex:avgInterestRate 15.707784628031236 ;
+    ex:avgLoanAmount 16715.30118281043 ;
+    ex:cohortType "status" ;
+    ex:defaultRate 1.0 ;
+    ex:loanCount 21897 ;
+    ex:loanStatus "Late (31-120 days)" .
+
+ex:Cohort_term_36_months a ex:Cohort ;
+    ex:avgDTI 17.911042769933967 ;
+    ex:avgIncome 74194.41880742609 ;
+    ex:avgInterestRate 12.177317287794402 ;
+    ex:avgLoanAmount 12562.299525515295 ;
+    ex:cohortType "term" ;
+    ex:defaultRate 0.1779876272106449 ;
+    ex:loanCount 1011413 ;
+    ex:term "36 months" .
+
+ex:Cohort_term_60_months a ex:Cohort ;
+    ex:avgDTI 19.48662441032366 ;
+    ex:avgIncome 82339.54670915767 ;
+    ex:avgInterestRate 16.820929390702755 ;
+    ex:avgLoanAmount 20334.421501395802 ;
+    ex:cohortType "term" ;
+    ex:defaultRate 0.35506129384634055 ;
+    ex:loanCount 329560 ;
+    ex:term "60 months" .
+

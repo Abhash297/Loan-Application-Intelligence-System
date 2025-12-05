@@ -1,0 +1,44 @@
+# Large data files
+loan.csv
+cleaned_loan_dataset.csv
+backup data/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Model artifacts (optional - uncomment if you don't want to track the model)
+# loan_classifier_final.pkl
+
+# Evaluation results (optional - uncomment if you want to regenerate each time)
+# evaluation_results.json
+
+# Temporary files
+*.tmp
+*.log
+
+# Ollama (if any models are stored locally, though they're usually in ~/.ollama)
+.ollama/
+
