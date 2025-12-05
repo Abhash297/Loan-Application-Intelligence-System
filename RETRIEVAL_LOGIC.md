@@ -2,27 +2,49 @@
 
 ## Overview
 
-The retrieval logic implements **graph-based retrieval** using SPARQL queries over an RDF knowledge graph. It follows a 3-step process:
+The system implements a **dual-backend routing system** that directs questions to either:
+- **Knowledge Graph (KG)**: For analytical queries over aggregated loan statistics
+- **ML Model**: For individual loan default predictions
 
-1. **Question Interpretation** → Extract dimension from user question
-2. **SPARQL Query Execution** → Query the KG for cohort data
-3. **Result Formatting** → Transform RDF results into JSON
+The routing logic follows a 2-step process:
+
+1. **Question Interpretation** → Determine question type (KG query vs ML prediction)
+2. **Backend Execution** → Route to appropriate backend (KG SPARQL query or ML model inference)
+3. **Result Formatting** → Transform results into JSON response
 
 ---
 
-## Step 1: Question Interpretation
+## Step 1: Question Interpretation and Routing
 
-**Location**: `api.py` lines 138-159
+**Location**: `api.py` lines 138-177
 
 ```python
 def _interpret_question_simple(question: str) -> Dict[str, Any]:
     """
     Very simple heuristic interpreter that maps a few patterns to
-    cohort queries. In a full system, replace this with an Ollama-based
+    KG queries or ML model predictions. In a full system, replace this with an Ollama-based
     LLM classifier + SPARQL generator.
     """
     q_lower = question.lower()
 
+    # Check for prediction keywords first (before KG keywords)
+    # This ensures prediction questions are routed correctly even if they mention KG dimensions
+    prediction_keywords = [
+        "approve",
+        "predict",
+        "predicted",
+        "default probability",
+        "probability",
+        "should we",
+        "will this",
+        "risk of default",
+        "default risk",
+    ]
+    for keyword in prediction_keywords:
+        if keyword in q_lower:
+            return {"type": "predict"}
+
+    # Check for KG dimension keywords
     if "grade" in q_lower:
         return {"type": "cohort", "dimension": "grade"}
     if "term" in q_lower:
@@ -40,15 +62,34 @@ def _interpret_question_simple(question: str) -> Dict[str, Any]:
 ```
 
 ### How it works:
-- **Input**: User question (e.g., "What is the default rate by grade?")
-- **Process**: Simple keyword matching (case-insensitive)
-- **Output**: Dictionary with `type` and `dimension` keys
+- **Input**: User question (e.g., "What is the default rate by grade?" or "Should we approve this loan?")
+- **Process**: 
+  1. First checks for prediction keywords (approve, predict, probability, etc.)
+  2. If no prediction keywords, checks for KG dimension keywords
+  3. Returns routing decision
+- **Output**: Dictionary with `type` ("predict", "cohort", or "unknown") and optionally `dimension` for KG queries
 
-### Example:
+### Examples:
+
+**KG Query:**
 ```python
 question = "What is the default rate by grade?"
 interpretation = _interpret_question_simple(question)
 # Returns: {"type": "cohort", "dimension": "grade"}
+```
+
+**ML Model Prediction:**
+```python
+question = "Should we approve a $15,000 loan for a borrower with grade B?"
+interpretation = _interpret_question_simple(question)
+# Returns: {"type": "predict"}
+```
+
+**Unknown:**
+```python
+question = "What is the current employer of a borrower?"
+interpretation = _interpret_question_simple(question)
+# Returns: {"type": "unknown"}
 ```
 
 ### Limitations:
@@ -56,10 +97,11 @@ interpretation = _interpret_question_simple(question)
 -  Fails on synonyms ("rent vs mortgage" doesn't match "home ownership")
 -  No support for multi-dimensional queries
 -  No support for temporal queries
+-  Prediction keywords checked first, but may miss some phrasings
 
 ---
 
-## Step 2: SPARQL Query Execution
+## Step 2A: KG Backend - SPARQL Query Execution
 
 **Location**: `api.py` lines 162-205
 
@@ -166,70 +208,182 @@ ORDER BY ?key
 
 ---
 
+## Step 2B: ML Model Backend - Prediction Execution
+
+**Location**: `api.py` lines 91-135
+
+```python
+@app.post("/predict", response_model=PredictResponse)
+def predict(req: PredictRequest) -> PredictResponse:
+    """
+    Run the trained classifier on the provided feature dict.
+    
+    Note: For realistic predictions, provide all 134 features the model expects.
+    Missing features are filled with NaN, which may lead to unreliable predictions.
+    """
+    model = app.state.model
+    threshold = app.state.threshold
+    feature_names: List[str] = app.state.model_features
+
+    # Build a single-row DataFrame matching training columns
+    row = {}
+    missing_count = 0
+    for f in feature_names:
+        val = req.features.get(f, np.nan)
+        row[f] = val
+        if pd.isna(val):
+            missing_count += 1
+
+    X = pd.DataFrame([row], columns=feature_names)
+
+    # Warn if too many features are missing (but still proceed)
+    missing_pct = missing_count / len(feature_names)
+    if missing_pct > 0.5:
+        import warnings
+        warnings.warn(
+            f"Warning: {missing_count}/{len(feature_names)} features are missing. "
+            f"Prediction may be unreliable. Provide full feature vector for realistic results."
+        )
+
+    try:
+        proba = model.predict_proba(X)[:, 1][0]
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=f"Prediction failed: {exc}") from exc
+
+    approved = bool(proba < threshold)
+
+    return PredictResponse(
+        approved=approved,
+        default_probability=float(proba),
+        threshold=threshold,
+        model_metadata=app.state.model_metadata,
+    )
+```
+
+### How it works:
+
+1. **Feature Vector Construction**:
+   - Takes partial feature dictionary from request
+   - Fills missing features with NaN
+   - Creates DataFrame matching training column order
+
+2. **Model Inference**:
+   - Runs `model.predict_proba()` to get default probability
+   - Compares probability to threshold (0.67) to determine approval
+
+3. **Response**:
+   - Returns approval decision, default probability, threshold, and model metadata
+
+### Example Request:
+```json
+{
+  "features": {
+    "loan_amnt": 15000,
+    "int_rate": 13.5,
+    "annual_inc": 80000,
+    "dti": 18.0,
+    "grade_B": 1.0
+  }
+}
+```
+
+### Example Response:
+```json
+{
+  "approved": true,
+  "default_probability": 0.23,
+  "threshold": 0.67,
+  "model_metadata": {...}
+}
+```
+
+---
+
 ## Step 3: Main Endpoint Handler
 
-**Location**: `api.py` lines 208-254
+**Location**: `api.py` lines 226-283
 
 ```python
 @app.post("/ask", response_model=AskResponse)
 def ask(req: AskRequest) -> AskResponse:
     """
-    Simple KG-backed question handler.
-
-    For now, we:
-    - Heuristically interpret the question to choose a cohort dimension.
-    - Run a SPARQL query over the cohort KG.
-    - Return raw stats plus a brief textual summary.
+    Simple question handler that routes to KG or ML model.
     """
     interpretation = _interpret_question_simple(req.question)
     kg: Graph = app.state.kg_graph
 
-    if interpretation.get("type") != "cohort":
+    # Route to ML model if prediction question detected
+    if interpretation.get("type") == "predict":
         return AskResponse(
             question=req.question,
             interpretation=interpretation,
             results=[],
             answer_text=(
-                "I can currently answer questions about aggregate statistics by "
-                "grade, term, purpose, home ownership, income band, or state."
+                "This question requires a prediction from the ML model. "
+                "Please use the /predict endpoint with the required feature vector."
             ),
         )
 
-    dim = interpretation["dimension"]
-    results = _run_cohort_query(kg, dim)
+    # Route to KG if cohort question detected
+    if interpretation.get("type") == "cohort":
+        dim = interpretation["dimension"]
+        results = _run_cohort_query(kg, dim)
 
-    if not results:
-        answer = f"No cohort statistics found for dimension '{dim}'."
-    else:
-        # Very simple summary: show top few rows
-        top = results[:5]
-        dim_label = dim.replace("_", " ")
-        answer_lines = [
-            f"Found {len(results)} {dim_label} cohorts. Showing first {len(top)}:",
-        ]
-        for r in top:
-            frag = f"{r['key']}: defaultRate={r.get('defaultRate')}, loanCount={r['loanCount']}"
-            answer_lines.append(f" - {frag}")
-        answer = "\n".join(answer_lines)
+        if not results:
+            answer = f"No cohort statistics found for dimension '{dim}'."
+        else:
+            # Very simple summary: show top few rows
+            top = results[:5]
+            dim_label = dim.replace("_", " ")
+            answer_lines = [
+                f"Found {len(results)} {dim_label} cohorts. Showing first {len(top)}:",
+            ]
+            for r in top:
+                frag = f"{r['key']}: defaultRate={r.get('defaultRate')}, loanCount={r['loanCount']}"
+                answer_lines.append(f" - {frag}")
+            answer = "\n".join(answer_lines)
 
+        return AskResponse(
+            question=req.question,
+            interpretation=interpretation,
+            results=results,
+            answer_text=answer,
+        )
+
+    # Unknown question type
     return AskResponse(
         question=req.question,
         interpretation=interpretation,
-        results=results,
-        answer_text=answer,
+        results=[],
+        answer_text=(
+            "I can currently answer questions about aggregate statistics by "
+            "grade, term, purpose, home ownership, income band, or state."
+        ),
     )
 ```
 
 ### Complete Flow:
 
+**For KG Queries:**
 ```
-User Question
+User Question: "What is the default rate by grade?"
     ↓
 _interpret_question_simple() → {"type": "cohort", "dimension": "grade"}
     ↓
 _run_cohort_query(kg, "grade") → [{"key": "A", "loanCount": 228592, ...}, ...]
     ↓
 Format response → AskResponse with results and answer_text
+```
+
+**For ML Model Predictions:**
+```
+User Question: "Should we approve a $15,000 loan for a borrower with grade B?"
+    ↓
+_interpret_question_simple() → {"type": "predict"}
+    ↓
+Route to /predict endpoint → Requires feature vector
+    ↓
+ML model inference → PredictResponse with approval and probability
 ```
 
 ---
@@ -289,6 +443,7 @@ def get_ground_truth_from_kg(dimension: str) -> Dict[str, Any]:
 
 ## Complete Retrieval Flow Diagram
 
+### KG Query Flow:
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    USER QUESTION                            │
@@ -306,7 +461,7 @@ def get_ground_truth_from_kg(dimension: str) -> Dict[str, Any]:
                        │
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│         Step 2: SPARQL Query Execution                      │
+│         Step 2A: SPARQL Query Execution                     │
 │         _run_cohort_query(kg, "grade")                      │
 │                                                              │
 │  Query:  SELECT ?key ?loanCount ?defaultRate ...           │
@@ -321,7 +476,7 @@ def get_ground_truth_from_kg(dimension: str) -> Dict[str, Any]:
                        │
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
-│         Step 3: Response Formatting                          │
+│         Step 3: Response Formatting                         │
 │         ask() endpoint                                       │
 │                                                              │
 │  Returns: AskResponse {                                      │
@@ -329,6 +484,48 @@ def get_ground_truth_from_kg(dimension: str) -> Dict[str, Any]:
 │    interpretation: {"type": "cohort", "dimension": "grade"},│
 │    results: [...],                                           │
 │    answer_text: "Found 7 grade cohorts. Showing first 5:..."│
+│  }                                                           │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### ML Model Prediction Flow:
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    USER QUESTION                            │
+│  "Should we approve a $15,000 loan for grade B?"            │
+└──────────────────────┬──────────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────────────┐
+│         Step 1: Question Interpretation                     │
+│         _interpret_question_simple()                        │
+│                                                              │
+│  Input:  "Should we approve a $15,000 loan..."             │
+│  Output: {"type": "predict"}                                │
+│  (Keyword "approve" detected)                              │
+└──────────────────────┬──────────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────────────┐
+│         Step 2B: ML Model Inference                         │
+│         /predict endpoint                                    │
+│                                                              │
+│  Input:  Feature vector {loan_amnt: 15000, grade_B: 1, ...}│
+│  Process: XGBoost model.predict_proba()                     │
+│  Output: default_probability = 0.23                        │
+│          approved = true (0.23 < 0.67 threshold)           │
+└──────────────────────┬──────────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────────────┐
+│         Step 3: Response Formatting                         │
+│         PredictResponse                                      │
+│                                                              │
+│  Returns: {                                                  │
+│    approved: true,                                           │
+│    default_probability: 0.23,                               │
+│    threshold: 0.67,                                         │
+│    model_metadata: {...}                                     │
 │  }                                                           │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -412,15 +609,29 @@ ORDER BY ?key
 
 ## Summary
 
-The retrieval logic is **simple but functional**:
+The retrieval logic implements a **dual-backend routing system**:
 
--  **Works**: Successfully retrieves cohort data from KG
+### KG Backend:
+-  **Works**: Successfully retrieves cohort data from KG using SPARQL
 -  **Standard**: Uses proper SPARQL/RDF
 -  **Limited**: Only supports single-dimension queries with keyword matching
 
+### ML Model Backend:
+-  **Works**: Routes prediction questions to XGBoost model
+-  **Requires**: Full feature vector (134 features) for accurate predictions
+-  **Returns**: Default probability and approval decision
+
+### Routing:
+-  **Keyword-based**: Simple heuristic matching
+-  **Priority**: Prediction keywords checked first, then KG dimensions
+-  **Accuracy**: 73.3% (11/15 questions) - see EVALUATION_SUMMARY.md
+
 **Key Files:**
-- `api.py` lines 138-254: Main retrieval logic
-- `evaluate_system.py` lines 33-72: Ground truth retrieval
+- `api.py` lines 91-135: ML model prediction endpoint
+- `api.py` lines 138-177: Question interpretation and routing
+- `api.py` lines 180-223: KG SPARQL query execution
+- `api.py` lines 226-283: Main /ask endpoint handler
+- `evaluate_system.py` lines 33-72: Ground truth retrieval for evaluation
 - `kg_cohorts.py`: KG construction (not retrieval, but prerequisite)
 
 ---
