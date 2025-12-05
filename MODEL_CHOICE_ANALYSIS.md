@@ -94,7 +94,7 @@
 
 ---
 
-## Could You Have Done Better?
+<!-- ## Alternatives
 
 ### LightGBM (Alternative Gradient Boosting)
 - **Pros**: Often faster than XGBoost, similar performance
@@ -111,7 +111,7 @@
 - **Cons**: More complexity, already exceed requirement
 - **Verdict**: Overkill for this assignment
 
----
+--- -->
 
 ## Industry Standard
 
