@@ -81,9 +81,8 @@ archive/
 - **[MODEL_CHOICE_ANALYSIS.md](MODEL_CHOICE_ANALYSIS.md)**: Detailed analysis of model selection, hyperparameter tuning, and performance metrics
 
 - **[EVALUATION_SUMMARY.md](EVALUATION_SUMMARY.md)**: System evaluation results including:
-  - Routing accuracy (60%)
-  - Retrieval quality (66.67%)
-  - Answer quality (80%)
+  - Routing accuracy (73.3% - 11/15 questions)
+  - Detailed routing breakdown table
   - Failure mode analysis
 
 - **[routing_breakdown.md](routing_breakdown.md)**: Detailed breakdown of question routing, showing which questions were routed correctly and which failed
@@ -135,14 +134,14 @@ python chat_ollama.py
 
 ### Example Usage
 
-**API Endpoint - Cohort Query:**
+**API Endpoint - KG Query:**
 ```bash
 curl -X POST http://localhost:8000/ask \
   -H "Content-Type: application/json" \
   -d '{"question": "What is the default rate by grade?"}'
 ```
 
-**API Endpoint - Prediction:**
+**API Endpoint - ML Model Prediction:**
 ```bash
 curl -X POST http://localhost:8000/predict \
   -H "Content-Type: application/json" \
@@ -169,7 +168,7 @@ User Question
     ↓
 Chatbot (chat_ollama.py)
     ↓
-Router (cohort vs predict)
+Router (KG vs ML model)
     ↓
     ├─→ /ask → KG (loan_cohorts.ttl) → SPARQL → Cohort Stats
     │
@@ -193,15 +192,16 @@ LLM (Ollama) → Natural Language Answer
 - **F1 Score**: 0.9295 (test set)
 - **Threshold**: 0.67 (optimized on validation set)
 - **No Overfitting**: Train-Test gap < 0.001
-- **Cross-Validation**: 5-fold CV mean F1 = 0.9296 (std = 0.0001)
+- **Cross-Validation**: 5-fold CV used to validate model performance
 
 ## Evaluation Results
 
-- **Routing Accuracy**: 60% (9/15 questions)
-- **Retrieval Quality**: 66.67% (when KG is queried correctly)
-- **Answer Quality**: 80% (LLM responses)
+- **Routing Accuracy**: 73.3% (11/15 questions)
+  - KG queries: 8/11 correctly routed
+  - ML model queries: 2/2 correctly routed
+  - Unknown queries: 1/1 correctly identified
 
-See [EVALUATION_SUMMARY.md](EVALUATION_SUMMARY.md) for detailed analysis.
+See [EVALUATION_SUMMARY.md](EVALUATION_SUMMARY.md) for detailed routing breakdown and analysis.
 
 ## Requirements
 
