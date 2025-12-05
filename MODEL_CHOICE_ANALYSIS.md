@@ -146,6 +146,6 @@
 
 **Future Improvements?**
 - Maybe 1-2% with LightGBM or ensemble
-- But 0.93 F1 is already excellent
+- 0.93 F1 is already excellent
 - Diminishing returns not worth the complexity
 
