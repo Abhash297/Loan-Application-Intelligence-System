@@ -143,6 +143,24 @@ def _interpret_question_simple(question: str) -> Dict[str, Any]:
     """
     q_lower = question.lower()
 
+    # Check for prediction keywords first (before cohort keywords)
+    # This ensures prediction questions are routed correctly even if they mention cohort dimensions
+    prediction_keywords = [
+        "approve",
+        "predict",
+        "predicted",
+        "default probability",
+        "probability",
+        "should we",
+        "will this",
+        "risk of default",
+        "default risk",
+    ]
+    for keyword in prediction_keywords:
+        if keyword in q_lower:
+            return {"type": "predict"}
+
+    # Check for cohort dimensions
     if "grade" in q_lower:
         return {"type": "cohort", "dimension": "grade"}
     if "term" in q_lower:
@@ -217,6 +235,17 @@ def ask(req: AskRequest) -> AskResponse:
     """
     interpretation = _interpret_question_simple(req.question)
     kg: Graph = app.state.kg_graph
+
+    if interpretation.get("type") == "predict":
+        return AskResponse(
+            question=req.question,
+            interpretation=interpretation,
+            results=[],
+            answer_text=(
+                "This question requires a prediction from the ML model. "
+                "Please use the /predict endpoint with the required feature vector."
+            ),
+        )
 
     if interpretation.get("type") != "cohort":
         return AskResponse(

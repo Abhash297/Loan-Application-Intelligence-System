@@ -252,23 +252,17 @@
     "question_id": "Q10",
     "question": "Should we approve a $15,000, 36-month loan for a borrower earning $80,000 with 18% DTI and grade B?",
     "routing": {
-      "correct": false,
+      "correct": true,
       "expected": "predict",
-      "actual": "cohort"
+      "actual": "predict"
     },
     "retrieval": {},
     "answer_quality": {
-      "score": 1.0,
-      "has_numbers": true,
+      "score": 0.6000000000000001,
+      "has_numbers": false,
       "is_coherent": true,
       "type_match": true,
-      "numbers_found": [
-        0.07010306572408483,
-        0.1513983437343791,
-        0.24973414470366606,
-        0.33090725272136556,
-        0.4072801550306395
-      ]
+      "numbers_found": []
     },
     "errors": []
   },
@@ -276,23 +270,17 @@
     "question_id": "Q11",
     "question": "What is the predicted default probability for a borrower with grade F, 60-month term, and $20,000 annual income?",
     "routing": {
-      "correct": false,
+      "correct": true,
       "expected": "predict",
-      "actual": "cohort"
+      "actual": "predict"
     },
     "retrieval": {},
     "answer_quality": {
-      "score": 1.0,
-      "has_numbers": true,
+      "score": 0.6000000000000001,
+      "has_numbers": false,
       "is_coherent": true,
       "type_match": true,
-      "numbers_found": [
-        0.07010306572408483,
-        0.1513983437343791,
-        0.24973414470366606,
-        0.33090725272136556,
-        0.4072801550306395
-      ]
+      "numbers_found": []
     },
     "errors": []
   },
