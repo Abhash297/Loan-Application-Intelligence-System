@@ -8,11 +8,7 @@
 
 ---
 
-## Was XGBoost a Good Choice?
-
-### ✅ **YES - Strong Choice for This Task**
-
-### Why XGBoost Works Well Here:
+###  XGBoost:
 
 #### 1. **Handles Mixed Data Types**
 - 134 features including:
@@ -23,7 +19,7 @@
 #### 2. **Deals with Imbalanced Classes**
 - Dataset has more good loans (class 0) than defaults (class 1)
 - XGBoost has `scale_pos_weight` parameter to handle imbalance
-- Your code used: `scale_pos_weight=(len(y_train) - sum(y_train)) / sum(y_train)`
+- We used: `scale_pos_weight=(len(y_train) - sum(y_train)) / sum(y_train)`
 - This automatically balances the loss function
 
 #### 3. **Feature Interactions**
@@ -84,7 +80,7 @@
   - `subsample=0.8` (row sampling)
   - `colsample_bytree=0.8` (column sampling)
   - Regularization (`reg_alpha`, `reg_lambda`)
-- **Result**: Train F1 (0.9301) vs Test F1 (0.9295) - gap of 0.0006 ✅
+- **Result**: Train F1 (0.9301) vs Test F1 (0.9295) - gap of 0.0006 
 
 ### 2. **Interpretability**
 - Less interpretable than linear models
@@ -134,20 +130,18 @@
 
 ## Conclusion
 
-### ✅ **XGBoost was an EXCELLENT choice**
+### **XGBoost**
 
 **Reasons:**
-1. ✅ Achieved F1 = 0.93 (far exceeds 0.75 requirement)
-2. ✅ Handles imbalanced classes well
-3. ✅ Captures feature interactions automatically
-4. ✅ Industry standard for this task
-5. ✅ Good balance of performance and interpretability
-6. ✅ No overfitting (train/test gap < 0.001)
+1.  Achieved F1 = 0.93 (far exceeds 0.75 requirement)
+2.  Handles imbalanced classes well
+3.  Captures feature interactions automatically
+4.  Industry standard for this task
+5.  Good balance of performance and interpretability
+6.  No overfitting (train/test gap < 0.001)
 
-**Could you have done better?**
+**Future Improvements?**
 - Maybe 1-2% with LightGBM or ensemble
 - But 0.93 F1 is already excellent
 - Diminishing returns not worth the complexity
-
-**Bottom line:** XGBoost was the right choice. No need to change.
 

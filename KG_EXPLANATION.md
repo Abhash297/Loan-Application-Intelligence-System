@@ -141,26 +141,26 @@ The chatbot uses the KG indirectly through the API:
 
 ### Bonus Requirements Analysis
 
-#### ✅ Requirement 1: "Build a knowledge graph from loan application data"
+####  Requirement 1: "Build a knowledge graph from loan application data"
 **Status: FULLY SATISFIED**
 
-- ✅ KG is built from loan CSV data
-- ✅ Uses proper RDF/OWL standards (rdflib, Turtle format)
-- ✅ Contains meaningful domain entities (cohorts)
-- ✅ Includes statistical properties (default rates, averages)
+-  KG is built from loan CSV data
+-  Uses proper RDF/OWL standards (rdflib, Turtle format)
+-  Contains meaningful domain entities (cohorts)
+-  Includes statistical properties (default rates, averages)
 
 **Evidence:**
 - `kg_cohorts.py` implements full KG construction pipeline
 - `loan_cohorts.ttl` contains 100+ cohort nodes with properties
 - Graph has 937 triples (from test output)
 
-#### ✅ Requirement 2: "Implement graph-based retrieval for the chatbot"
+####  Requirement 2: "Implement graph-based retrieval for the chatbot"
 **Status: PARTIALLY SATISFIED**
 
-- ✅ SPARQL queries implemented (`_run_cohort_query`)
-- ✅ Integrated into `/ask` API endpoint
-- ✅ Used by chatbot for cohort questions
-- ⚠️ **Limitation**: Simple keyword-based routing, not full semantic retrieval
+-  SPARQL queries implemented (`_run_cohort_query`)
+-  Integrated into `/ask` API endpoint
+-  Used by chatbot for cohort questions
+-  **Limitation**: Simple keyword-based routing, not full semantic retrieval
 
 **Evidence:**
 - `api.py` lines 162-205: SPARQL query execution
@@ -172,12 +172,12 @@ The chatbot uses the KG indirectly through the API:
 - No graph traversal (only single-dimension queries)
 - No relationship inference between cohorts
 
-#### ⚠️ Requirement 3: "Compare performance against base implementation"
+####  Requirement 3: "Compare performance against base implementation"
 **Status: NOT FULLY ADDRESSED**
 
-- ❌ No explicit comparison with non-KG baseline
-- ❌ No performance metrics comparing KG vs. direct database queries
-- ✅ Evaluation shows KG retrieval works (66.67% retrieval quality)
+-  No explicit comparison with non-KG baseline
+-  No performance metrics comparing KG vs. direct database queries
+-  Evaluation shows KG retrieval works (66.67% retrieval quality)
 
 **What's Needed:**
 - Baseline implementation without KG (direct pandas queries)
@@ -219,22 +219,22 @@ The chatbot uses the KG indirectly through the API:
 
 ## 6. Strengths
 
-### ✅ Proper RDF Implementation
+###  Proper RDF Implementation
 - Uses standard RDF/OWL technologies
 - Turtle serialization is human-readable
 - SPARQL queries are standard-compliant
 
-### ✅ Domain-Appropriate Design
+###  Domain-Appropriate Design
 - Cohort-based aggregation is sensible for loan analytics
 - Covers key business dimensions (grade, term, purpose, etc.)
 - Statistical properties are relevant (default rates, averages)
 
-### ✅ Integration with System
+###  Integration with System
 - Seamlessly integrated into REST API
 - Used by chatbot for analytics questions
 - Serves as ground truth for evaluation
 
-### ✅ Functional for Simple Queries
+###  Functional for Simple Queries
 - Works perfectly for direct questions (e.g., "What is the default rate by grade?")
 - 100% accuracy when correctly routed
 - Fast query execution
@@ -278,13 +278,13 @@ The chatbot uses the KG indirectly through the API:
 
 ## 8. Summary
 
-### What Works Well ✅
+### What Works Well 
 - Proper RDF/SPARQL implementation
 - Functional for simple cohort queries
 - Good integration with chatbot system
 - Domain-appropriate design
 
-### What Needs Improvement ⚠️
+### What Needs Improvement 
 - Simple routing (60% accuracy)
 - Limited query expressiveness
 - No performance comparison with baseline

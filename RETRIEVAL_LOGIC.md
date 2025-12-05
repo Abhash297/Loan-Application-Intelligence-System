@@ -337,14 +337,14 @@ def get_ground_truth_from_kg(dimension: str) -> Dict[str, Any]:
 
 ## Key Design Decisions
 
-### ✅ What's Good:
+###  What's Good:
 
 1. **Standard SPARQL**: Uses industry-standard RDF/SPARQL
 2. **Separation of Concerns**: Interpretation, querying, and formatting are separate
 3. **Type Safety**: Returns structured dictionaries with consistent keys
 4. **Error Handling**: Returns empty results gracefully
 
-### ⚠️ Limitations:
+###  Limitations:
 
 1. **Simple Keyword Matching**: Only exact keyword matches work
 2. **Single Dimension**: Can't query multiple dimensions at once
@@ -414,10 +414,9 @@ ORDER BY ?key
 
 The retrieval logic is **simple but functional**:
 
-- ✅ **Works**: Successfully retrieves cohort data from KG
-- ✅ **Standard**: Uses proper SPARQL/RDF
-- ⚠️ **Limited**: Only supports single-dimension queries with keyword matching
-- ⚠️ **No Baseline**: No comparison with direct database queries
+-  **Works**: Successfully retrieves cohort data from KG
+-  **Standard**: Uses proper SPARQL/RDF
+-  **Limited**: Only supports single-dimension queries with keyword matching
 
 **Key Files:**
 - `api.py` lines 138-254: Main retrieval logic

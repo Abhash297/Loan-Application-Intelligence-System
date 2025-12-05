@@ -51,16 +51,14 @@
 | Q14: What is the default rate for loans issued in 2015? | KG | unknown | **Failed** |
 | Q15: What is the average loan amount for different income bands? | KG | KG | Correct |
 
-## Recommendations
+## Potential Improvements
 
 1. **Improve Router**: Replace simple keyword matching with LLM-based classification
 2. **Expand Keyword Patterns**: Add more synonyms and phrasings for each dimension
-3. **Temporal Support**: Either add year-based cohorts to KG or return clear "not supported" messages
-4. **Better Error Messages**: When routing fails, provide helpful feedback to user
 
 ## Conclusion
 
-The system performs well on **simple, direct KG queries** and **prediction questions** (11/15 = 73.3% routing, but 100% accuracy when routed correctly). The main limitation is the **simple heuristic router** which fails on:
+The system performs well on **simple, direct KG queries** and **prediction questions**. The main limitation is the **simple heuristic router** which fails on:
 - Complex phrasings (home ownership, status dimensions)
 - Unsupported query types (temporal)
 
