@@ -12,8 +12,8 @@ from pathlib import Path
 from rdflib import Graph
 
 
-BASE_DIR = Path(__file__).resolve().parent
-TTL_PATH = BASE_DIR / "loan_cohorts.ttl"
+BASE_DIR = Path(__file__).resolve().parent.parent
+TTL_PATH = BASE_DIR / "artifacts" / "loan_cohorts.ttl"
 EX_NS = "http://example.org/loan#"
 
 

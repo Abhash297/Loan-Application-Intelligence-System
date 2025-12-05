@@ -276,9 +276,9 @@ def build_and_save_kg(
 
 
 if __name__ == "__main__":
-    base_dir = Path(__file__).resolve().parent
-    data_file = base_dir / "cleaned_loan_dataset.csv"
-    output_file = base_dir / "loan_cohorts.ttl"
+    base_dir = Path(__file__).resolve().parent.parent
+    data_file = base_dir / "data" / "cleaned_loan_dataset.csv"
+    output_file = base_dir / "artifacts" / "loan_cohorts.ttl"
 
     print(f"Loading data from {data_file} ...")
     cohorts_dict, graph = build_and_save_kg(data_file, output_file)

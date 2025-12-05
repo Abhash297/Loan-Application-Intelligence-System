@@ -34,7 +34,7 @@
 
 ## Root Cause
 
-The simple heuristic router in `api.py` (`_interpret_question_simple`) checks for keywords:
+The simple heuristic router in `src/api.py` (`_interpret_question_simple`) checks for keywords:
 - **Prediction keywords** (checked first): "approve", "predict", "predicted", "default probability", "probability", "should we", "will this", "risk of default", "default risk"
 - **KG dimension keywords**: "grade" → grade dimension, "term" → term dimension, "purpose" → purpose dimension, etc.
 

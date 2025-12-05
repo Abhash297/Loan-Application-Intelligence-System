@@ -1,9 +1,9 @@
 # Large data files
-loan.csv
-cleaned_loan_dataset.csv
+data/loan.csv
+data/cleaned_loan_dataset.csv
+data/backup data/
 Inductiv_AI_Engineer_Assignment.pdf
-test_risky_loan.py
-backup data/
+Inductiv Take-Home Assignment_ AI Engineer.pdf
 
 # Python cache
 __pycache__/

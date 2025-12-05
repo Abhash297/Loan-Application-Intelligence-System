@@ -20,72 +20,90 @@ The system can answer questions like:
 ```
 archive/
 ├── README.md                          # This file
-├── PROJECT_DOCUMENTATION.md           # Comprehensive project documentation
-├── MODEL_CHOICE_ANALYSIS.md          # ML model selection and analysis
-├── EVALUATION_SUMMARY.md              # System evaluation results
-├── routing_breakdown.md               # Routing accuracy analysis
+├── .gitignore                         # Git ignore rules
 │
-├── test_2.ipynb                      # Model training notebook
-├── loan_classifier_final.pkl         # Trained XGBoost model (2.2MB)
+├── docs/                              # Documentation
+│   ├── PROJECT_DOCUMENTATION.md       # Comprehensive project documentation
+│   ├── MODEL_CHOICE_ANALYSIS.md       # ML model selection and analysis
+│   ├── EVALUATION_SUMMARY.md          # System evaluation results
+│   ├── routing_breakdown.md           # Routing accuracy analysis
+│   ├── RETRIEVAL_LOGIC.md             # Detailed retrieval logic explanation
+│   └── KG_EXPLANATION.md              # Knowledge graph explanation
 │
-├── kg_cohorts.py                     # Knowledge graph construction
-├── loan_cohorts.ttl                  # Serialized RDF graph (838 triples)
-├── test_sparql.py                    # SPARQL query examples
+├── notebooks/                         # Jupyter notebooks
+│   ├── test_1.ipynb                   # Initial exploration notebook
+│   └── test_2.ipynb                   # Model training pipeline
 │
-├── api.py                            # FastAPI REST API
-├── chat_ollama.py                    # LLM chatbot interface
+├── src/                               # Source code
+│   ├── api.py                         # FastAPI REST API
+│   ├── chat_ollama.py                 # LLM chatbot interface
+│   ├── kg_cohorts.py                  # Knowledge graph construction
+│   └── evaluate_system.py             # Evaluation script
 │
-├── evaluate_system.py                # Evaluation script
-├── evaluation_questions.json         # Test questions (15 questions)
-├── evaluation_results.json           # Evaluation metrics
+├── scripts/                           # Utility scripts
+│   ├── demo_predict.py                # Demo script for /predict endpoint
+│   ├── test_risky_loan.py             # Test script for risky loan scenarios
+│   ├── test_sparql.py                 # SPARQL query examples
+│   ├── find_low_risk_demo.py         # Helper to find low-risk examples
+│   └── find_rejected_example.py      # Helper to find rejected examples
 │
-├── demo_predict.py                   # Demo script for /predict endpoint
-├── test_risky_loan.py                # Test script for risky loan scenarios
-├── find_low_risk_demo.py             # Helper to find low-risk examples
+├── artifacts/                         # Saved models and KG
+│   ├── loan_classifier_final.pkl      # Trained XGBoost model (2.2MB)
+│   └── loan_cohorts.ttl               # Serialized RDF graph (838 triples)
 │
-├── loan.csv                          # Original dataset (1.1GB, gitignored)
-├── cleaned_loan_dataset.csv          # Cleaned dataset (634MB, gitignored)
-└── .gitignore                        # Git ignore rules
+├── data/                              # Data files (gitignored)
+│   ├── loan.csv                       # Original dataset (1.1GB)
+│   ├── cleaned_loan_dataset.csv       # Cleaned dataset (634MB)
+│   ├── LCDataDictionary.xlsx         # Data dictionary
+│   └── backup data/                   # Backup data folder
+│
+└── evaluation/                        # Evaluation data
+    ├── evaluation_questions.json      # Test questions (15 questions)
+    └── evaluation_results.json        # Evaluation metrics
 ```
 
 ### Key Files
 
 **Model Training:**
-- `test_2.ipynb`: Complete model training pipeline with feature engineering, hyperparameter tuning, and evaluation
+- `notebooks/test_2.ipynb`: Complete model training pipeline with feature engineering, hyperparameter tuning, and evaluation
 
 **Knowledge Graph:**
-- `kg_cohorts.py`: Builds cohort-based KG from loan data
-- `loan_cohorts.ttl`: Serialized RDF graph with 7 cohort dimensions
-- `test_sparql.py`: Example SPARQL queries over the KG
+- `src/kg_cohorts.py`: Builds cohort-based KG from loan data
+- `artifacts/loan_cohorts.ttl`: Serialized RDF graph with 7 cohort dimensions
+- `scripts/test_sparql.py`: Example SPARQL queries over the KG
 
 **API & Chatbot:**
-- `api.py`: FastAPI application with `/predict` and `/ask` endpoints
-- `chat_ollama.py`: Interactive chatbot using Ollama LLM
+- `src/api.py`: FastAPI application with `/predict` and `/ask` endpoints
+- `src/chat_ollama.py`: Interactive chatbot using Ollama LLM
 
 **Evaluation:**
-- `evaluate_system.py`: Automated evaluation script
-- `evaluation_questions.json`: 15 test questions covering all query types
-- `evaluation_results.json`: Detailed evaluation metrics
+- `src/evaluate_system.py`: Automated evaluation script
+- `evaluation/evaluation_questions.json`: 15 test questions covering all query types
+- `evaluation/evaluation_results.json`: Detailed evaluation metrics
 
 ## Documentation
 
 ### Main Documentation
 
-- **[PROJECT_DOCUMENTATION.md](PROJECT_DOCUMENTATION.md)**: Comprehensive documentation covering all three parts:
+- **[docs/PROJECT_DOCUMENTATION.md](docs/PROJECT_DOCUMENTATION.md)**: Comprehensive documentation covering all three parts:
   - Part 1: Machine Learning (data preprocessing, model training, performance)
   - Part 2: Knowledge Graph (construction, retrieval logic, question types)
   - Part 3: REST API (endpoints, implementation, integration)
 
 ### Additional Documentation
 
-- **[MODEL_CHOICE_ANALYSIS.md](MODEL_CHOICE_ANALYSIS.md)**: Detailed analysis of model selection, hyperparameter tuning, and performance metrics
+- **[docs/MODEL_CHOICE_ANALYSIS.md](docs/MODEL_CHOICE_ANALYSIS.md)**: Detailed analysis of model selection, hyperparameter tuning, and performance metrics
 
-- **[EVALUATION_SUMMARY.md](EVALUATION_SUMMARY.md)**: System evaluation results including:
+- **[docs/EVALUATION_SUMMARY.md](docs/EVALUATION_SUMMARY.md)**: System evaluation results including:
   - Routing accuracy (73.3% - 11/15 questions)
   - Detailed routing breakdown table
   - Failure mode analysis
 
-- **[routing_breakdown.md](routing_breakdown.md)**: Detailed breakdown of question routing, showing which questions were routed correctly and which failed
+- **[docs/routing_breakdown.md](docs/routing_breakdown.md)**: Detailed breakdown of question routing, showing which questions were routed correctly and which failed
+
+- **[docs/RETRIEVAL_LOGIC.md](docs/RETRIEVAL_LOGIC.md)**: Complete explanation of retrieval logic for both KG and ML model backends
+
+- **[docs/KG_EXPLANATION.md](docs/KG_EXPLANATION.md)**: Detailed explanation of the knowledge graph structure and design
 
 ## Quick Start
 
@@ -117,7 +135,8 @@ ollama pull llama3
 
 1. **Start the REST API:**
 ```bash
-uvicorn api:app --reload
+cd /path/to/archive
+uvicorn src.api:app --reload
 ```
 API will be available at `http://localhost:8000`
 - Interactive docs: `http://localhost:8000/docs`
@@ -129,7 +148,7 @@ ollama serve
 
 3. **Run the chatbot:**
 ```bash
-python chat_ollama.py
+python src/chat_ollama.py
 ```
 
 ### Example Usage
@@ -157,7 +176,7 @@ curl -X POST http://localhost:8000/predict \
 
 **Chatbot:**
 ```bash
-python chat_ollama.py
+python src/chat_ollama.py
 # Then type: "What is the default rate by grade?"
 ```
 
@@ -201,7 +220,7 @@ LLM (Ollama) → Natural Language Answer
   - ML model queries: 2/2 correctly routed
   - Unknown queries: 1/1 correctly identified
 
-See [EVALUATION_SUMMARY.md](EVALUATION_SUMMARY.md) for detailed routing breakdown and analysis.
+See [docs/EVALUATION_SUMMARY.md](docs/EVALUATION_SUMMARY.md) for detailed routing breakdown and analysis.
 
 ## Requirements
 

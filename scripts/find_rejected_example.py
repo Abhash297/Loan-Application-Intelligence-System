@@ -8,9 +8,9 @@ import joblib
 import pandas as pd
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / "loan_classifier_final.pkl"
-DATA_PATH = BASE_DIR / "loan.csv"  # Original data
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_PATH = BASE_DIR / "artifacts" / "loan_classifier_final.pkl"
+DATA_PATH = BASE_DIR / "data" / "loan.csv"  # Original data
 
 
 def main():

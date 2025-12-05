@@ -18,13 +18,13 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from rdflib import Graph
 
-from kg_cohorts import build_cohort_graph, compute_cohorts, load_cleaned_data
+from .kg_cohorts import build_cohort_graph, compute_cohorts, load_cleaned_data
 
 
-BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / "loan_classifier_final.pkl"
-DATA_PATH = BASE_DIR / "cleaned_loan_dataset.csv"
-KG_TTL_PATH = BASE_DIR / "loan_cohorts.ttl"
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_PATH = BASE_DIR / "artifacts" / "loan_classifier_final.pkl"
+DATA_PATH = BASE_DIR / "data" / "cleaned_loan_dataset.csv"
+KG_TTL_PATH = BASE_DIR / "artifacts" / "loan_cohorts.ttl"
 
 
 class PredictRequest(BaseModel):
@@ -33,18 +33,32 @@ class PredictRequest(BaseModel):
     features: Dict[str, Any] = Field(
         ...,
         description="Dictionary of feature_name -> value, using the same names as in training.",
+        example={
+            "loan_amnt": 15000,
+            "int_rate": 13.5,
+            "annual_inc": 80000,
+            "dti": 18.0,
+            "grade_B": 1.0,
+            "term_36 months": 1.0,
+            "purpose_debt_consolidation": 1.0,
+            "home_ownership_MORTGAGE": 1.0
+        }
     )
 
 
 class PredictResponse(BaseModel):
-    approved: bool
-    default_probability: float
-    threshold: float
-    model_metadata: Dict[str, Any]
+    approved: bool = Field(example=True, description="Whether the loan should be approved")
+    default_probability: float = Field(example=0.23, description="Probability of default (0-1)")
+    threshold: float = Field(example=0.67, description="Decision threshold used")
+    model_metadata: Dict[str, Any] = Field(example={"train_f1": 0.9301, "test_f1": 0.9295})
 
 
 class AskRequest(BaseModel):
-    question: str
+    question: str = Field(
+        ...,
+        example="What is the default rate by grade?",
+        description="Natural language question about loan statistics or predictions"
+    )
 
 
 class AskResponse(BaseModel):
@@ -95,6 +109,22 @@ def predict(req: PredictRequest) -> PredictResponse:
     
     Note: For realistic predictions, provide all 134 features the model expects.
     Missing features are filled with NaN, which may lead to unreliable predictions.
+    
+    **Example Request:**
+    ```json
+    {
+        "features": {
+            "loan_amnt": 15000,
+            "int_rate": 13.5,
+            "annual_inc": 80000,
+            "dti": 18.0,
+            "grade_B": 1.0,
+            "term_36 months": 1.0,
+            "purpose_debt_consolidation": 1.0,
+            "home_ownership_MORTGAGE": 1.0
+        }
+    }
+    ```
     """
     model = app.state.model
     threshold = app.state.threshold
@@ -232,6 +262,12 @@ def ask(req: AskRequest) -> AskResponse:
     - Heuristically interpret the question to choose a cohort dimension.
     - Run a SPARQL query over the cohort KG.
     - Return raw stats plus a brief textual summary.
+    
+    **Example Questions:**
+    - "What is the default rate by grade?"
+    - "Which term (36 or 60 months) has a higher default rate?"
+    - "Compare default rates across income bands."
+    - "Should we approve a $15,000 loan for a borrower with grade B?" (routes to ML model)
     """
     interpretation = _interpret_question_simple(req.question)
     kg: Graph = app.state.kg_graph

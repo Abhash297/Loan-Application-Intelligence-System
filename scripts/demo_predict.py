@@ -22,8 +22,8 @@ import joblib
 import requests
 
 
-BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / "loan_classifier_final.pkl"
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_PATH = BASE_DIR / "artifacts" / "loan_classifier_final.pkl"
 API_BASE = "http://127.0.0.1:8000"
 
 OLLAMA_BASE = "http://127.0.0.1:11434"

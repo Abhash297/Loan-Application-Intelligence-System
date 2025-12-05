@@ -26,8 +26,8 @@ API_BASE = "http://localhost:8000"
 OLLAMA_BASE = "http://localhost:11434"
 OLLAMA_MODEL = "llama3"  # change if you prefer a different local model
 
-BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / "loan_classifier_final.pkl"
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_PATH = BASE_DIR / "artifacts" / "loan_classifier_final.pkl"
 
 
 @dataclass

@@ -30,7 +30,7 @@ Each cohort node contains:
 
 ## 2. How is the KG Built?
 
-### Architecture (`kg_cohorts.py`)
+### Architecture (`src/kg_cohorts.py`)
 
 The KG construction follows these steps:
 
@@ -66,7 +66,7 @@ g = build_cohort_graph(cohorts)
 
 #### Step 4: Serialization
 ```python
-g.serialize(destination="loan_cohorts.ttl", format="turtle")
+g.serialize(destination="artifacts/loan_cohorts.ttl", format="turtle")
 ```
 - Saves the graph to a Turtle (.ttl) file
 - Turtle is a human-readable RDF format

@@ -16,7 +16,7 @@ The routing logic follows a 2-step process:
 
 ## Step 1: Question Interpretation and Routing
 
-**Location**: `api.py` lines 138-177
+**Location**: `src/api.py` lines 138-177
 
 ```python
 def _interpret_question_simple(question: str) -> Dict[str, Any]:
@@ -390,7 +390,7 @@ ML model inference → PredictResponse with approval and probability
 
 ## Alternative: Direct KG Query (for Evaluation)
 
-**Location**: `evaluate_system.py` lines 33-72
+**Location**: `src/evaluate_system.py` lines 33-72
 
 This is used for evaluation to get ground truth directly from KG:
 
@@ -624,15 +624,15 @@ The retrieval logic implements a **dual-backend routing system**:
 ### Routing:
 -  **Keyword-based**: Simple heuristic matching
 -  **Priority**: Prediction keywords checked first, then KG dimensions
--  **Accuracy**: 73.3% (11/15 questions) - see EVALUATION_SUMMARY.md
+-  **Accuracy**: 73.3% (11/15 questions) - see [EVALUATION_SUMMARY.md](EVALUATION_SUMMARY.md)
 
 **Key Files:**
-- `api.py` lines 91-135: ML model prediction endpoint
-- `api.py` lines 138-177: Question interpretation and routing
-- `api.py` lines 180-223: KG SPARQL query execution
-- `api.py` lines 226-283: Main /ask endpoint handler
-- `evaluate_system.py` lines 33-72: Ground truth retrieval for evaluation
-- `kg_cohorts.py`: KG construction (not retrieval, but prerequisite)
+- `src/api.py` lines 91-135: ML model prediction endpoint
+- `src/api.py` lines 138-177: Question interpretation and routing
+- `src/api.py` lines 180-223: KG SPARQL query execution
+- `src/api.py` lines 226-283: Main /ask endpoint handler
+- `src/evaluate_system.py` lines 33-72: Ground truth retrieval for evaluation
+- `src/kg_cohorts.py`: KG construction (not retrieval, but prerequisite)
 
 ---
 

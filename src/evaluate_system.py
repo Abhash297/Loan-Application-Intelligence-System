@@ -15,9 +15,9 @@ from typing import Any, Dict, List, Optional
 import requests
 from rdflib import Graph
 
-BASE_DIR = Path(__file__).resolve().parent
-QUESTIONS_FILE = BASE_DIR / "evaluation_questions.json"
-KG_TTL_PATH = BASE_DIR / "loan_cohorts.ttl"
+BASE_DIR = Path(__file__).resolve().parent.parent
+QUESTIONS_FILE = BASE_DIR / "evaluation" / "evaluation_questions.json"
+KG_TTL_PATH = BASE_DIR / "artifacts" / "loan_cohorts.ttl"
 API_BASE = "http://127.0.0.1:8000"
 OLLAMA_BASE = "http://127.0.0.1:11434"
 OLLAMA_MODEL = "llama3"
@@ -262,26 +262,6 @@ def main():
     routing_correct = sum(1 for r in results if r["routing"].get("correct", False))
     routing_total = len([r for r in results if r["routing"]])
     print(f"\nRouting Accuracy: {routing_correct}/{routing_total} ({routing_correct/routing_total*100:.1f}%)")
-
-    # Retrieval quality (average score)
-    retrieval_scores = [
-        r["retrieval"]["score"]
-        for r in results
-        if r["retrieval"].get("score") is not None
-    ]
-    if retrieval_scores:
-        avg_retrieval = sum(retrieval_scores) / len(retrieval_scores)
-        print(f"Average Retrieval Quality: {avg_retrieval:.2%}")
-
-    # Answer quality (average score)
-    answer_scores = [
-        r["answer_quality"]["score"]
-        for r in results
-        if r["answer_quality"].get("score") is not None
-    ]
-    if answer_scores:
-        avg_answer = sum(answer_scores) / len(answer_scores)
-        print(f"Average Answer Quality: {avg_answer:.2%}")
 
     # Save detailed results
     output_file = BASE_DIR / "evaluation_results.json"
