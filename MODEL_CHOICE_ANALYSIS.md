@@ -49,6 +49,11 @@
 
 ### RandomForest (Tried)
 - Also tree-based, similar strengths
+- **Cons of RandomForest:**
+  - Took too long to run (slower training time)
+  - Less effective at handling imbalanced classes (no built-in class weight optimization like XGBoost's `scale_pos_weight`)
+  - Fewer hyperparameter tuning options
+  - Less efficient for large datasets
 - **Why XGBoost over RF?**
   - XGBoost uses gradient boosting (sequential improvement)
   - Generally better performance on structured data
@@ -75,21 +80,20 @@
 
 ### 1. **Overfitting Risk**
 - XGBoost can overfit with too many trees
-- **Mitigation**: Your code used:
+- **Mitigation**: My code used:
   - `max_depth=6` (limits tree depth)
   - `subsample=0.8` (row sampling)
   - `colsample_bytree=0.8` (column sampling)
   - Regularization (`reg_alpha`, `reg_lambda`)
+  - 5-fold cross-validation to validate model performance
 - **Result**: Train F1 (0.9301) vs Test F1 (0.9295) - gap of 0.0006 
 
 ### 2. **Interpretability**
 - Less interpretable than linear models
-- **Mitigation**: Feature importance scores help
-- For production, could use SHAP values for explanations
 
 ### 3. **Training Time**
 - Can be slow with many trees
-- **Mitigation**: Used `tree_method="hist"` for faster training
+- **Mitigation**: I used `tree_method="hist"` for faster training
 - 800 trees trained efficiently
 
 ---
@@ -103,7 +107,7 @@
 
 ### CatBoost (Another Alternative)
 - **Pros**: Better handling of categorical features
-- **Cons**: Your categories are already one-hot encoded
+- **Cons**: My categories are already one-hot encoded
 - **Verdict**: Unlikely to improve much
 
 ### Ensemble (XGBoost + RandomForest)
