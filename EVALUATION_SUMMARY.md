@@ -3,8 +3,6 @@
 ## Metrics Overview
 
 - **Routing Accuracy**: 73.3% (11/15 questions)
-- **Retrieval Quality**: 66.67% (when KG is queried correctly)
-- **Answer Quality**: 74.67% (LLM responses are generally good)
 
 ## Detailed Results
 
@@ -33,20 +31,25 @@
 - **Issue**: Temporal queries not supported (KG doesn't have year-based cohorts)
 - **Fix**: Add temporal dimension to KG or explicitly handle unsupported queries
 
-## Retrieval Quality
+## Routing Breakdown
 
-When questions are correctly routed to KG:
-- **100% accuracy** for simple cohort queries (grade, term, purpose, income_band, state)
-- Numbers match ground truth from SPARQL queries
-- Average retrieval score: **66.67%** (lowered by failed routings)
-
-## Answer Quality
-
-LLM responses are generally strong:
-- **74.67% average score**
-- Contains relevant numbers
-- Coherent and addresses question type
-- Some comparative questions could better highlight differences
+| Question | Expected | Actual | Status |
+|----------|----------|--------|--------|
+| Q1: What is the default rate by grade? | cohort | cohort | Correct |
+| Q2: Which term (36 or 60 months) has a higher default rate? | cohort | cohort | Correct |
+| Q3: What is the default rate for grade B loans? | cohort | cohort | Correct |
+| Q4: Compare default rates across income bands. | cohort | cohort | Correct |
+| Q5: Which loan purpose has the highest default rate? | cohort | cohort | Correct |
+| Q6: How does default rate differ between borrowers who rent versus those with a mortgage? | cohort | unknown | **Failed** |
+| Q7: What is the average interest rate for fully paid loans versus charged off loans? | cohort | unknown | **Failed** |
+| Q8: Which three states have the highest average interest rates? | cohort | cohort | Correct |
+| Q9: What is the default rate for grade C, 36-month loans? | cohort | cohort | Correct |
+| Q10: Should we approve a $15,000, 36-month loan for a borrower earning $80,000 with 18% DTI and grade B? | predict | predict | Correct |
+| Q11: What is the predicted default probability for a borrower with grade F, 60-month term, and $20,000 annual income? | predict | predict | Correct |
+| Q12: Compare default rates for debt_consolidation versus credit_card loans. | cohort | unknown | **Failed** |
+| Q13: What is the current employer of a specific borrower in the dataset? | unknown | unknown | Correct |
+| Q14: What is the default rate for loans issued in 2015? | cohort | unknown | **Failed** |
+| Q15: What is the average loan amount for different income bands? | cohort | cohort | Correct |
 
 ## Recommendations
 
@@ -61,5 +64,5 @@ The system performs well on **simple, direct cohort queries** and **prediction q
 - Complex phrasings (home ownership, status dimensions)
 - Unsupported query types (temporal)
 
-With an improved router (LLM-based), routing accuracy should approach 90%+, and overall system performance would improve significantly.
+With an improved router (LLM-based), routing accuracy should improve significantly.
 
