@@ -131,7 +131,7 @@ For questions with `key_metrics` in ground truth:
 - Example: Q1 - "What is the default rate by grade?"
   - Relevant metrics: Only `defaultRate` (not `loanCount` or `avgInterestRate`)
   - Prevents false negatives when chatbot correctly answers but doesn't mention irrelevant metrics
-
+<!-- 
 ## Key Features
 
 ### Context-Aware Metric Checking
@@ -209,7 +209,7 @@ The chatbot answer doesn't contain the specific entity mentioned in the expected
 
 The chatbot answer doesn't contain the specific numeric values from the expected answer. This could indicate:
 - Hallucination (chatbot gave wrong numbers)
-- Number format issue (percentages vs decimals)
+- Number format issue (percentages vs decimals) -->
 <!-- 
 ### Different answers between interactive chatbot and evaluation
 
