@@ -1,10 +1,8 @@
 """
-Part 3: Evaluation script for the loan intelligence system.
+Evaluation script for routing, retrieval quality, and answer quality.
 
 Measures:
-1. Retrieval quality (for KG queries)
-2. Answer generation quality (LLM responses)
-3. End-to-end system performance
+Routing accuracy (KG vs ML model vs unknown)
 """
 
 import json
@@ -31,7 +29,7 @@ def load_questions() -> List[Dict[str, Any]]:
 
 
 def get_ground_truth_from_kg(dimension: str) -> Dict[str, Any]:
-    """Query KG directly to get ground truth for cohort questions."""
+    """Query KG directly to get ground truth for KG questions."""
     g = Graph()
     g.parse(str(KG_TTL_PATH), format="turtle")
     prefix = "http://example.org/loan#"
@@ -176,6 +174,16 @@ def evaluate_answer_quality(
     }
 
 
+def _format_backend_name(backend: str) -> str:
+    """Convert internal backend names to display names."""
+    mapping = {
+        "cohort": "KG",
+        "predict": "ML Model",
+        "unknown": "unknown"
+    }
+    return mapping.get(backend, backend)
+
+
 def evaluate_routing(question: Dict[str, Any], api_result: Dict[str, Any]) -> Dict[str, Any]:
     """Evaluate if question was routed to correct backend."""
     expected = question.get("expected_backend", "unknown")
@@ -204,7 +212,8 @@ def evaluate_end_to_end(question: Dict[str, Any]) -> Dict[str, Any]:
     """Run full evaluation for a single question."""
     print(f"\n{'='*60}")
     print(f"Question {question['id']}: {question['question']}")
-    print(f"Type: {question['type']}, Expected backend: {question['expected_backend']}")
+    expected_backend_display = _format_backend_name(question.get("expected_backend", "unknown"))
+    print(f"Type: {question['type']}, Expected backend: {expected_backend_display}")
 
     result = {
         "question_id": question["id"],
@@ -224,9 +233,12 @@ def evaluate_end_to_end(question: Dict[str, Any]) -> Dict[str, Any]:
         
         # Print actual routing result
         actual = result["routing"].get("actual", "unknown")
+        expected = question.get("expected_backend", "unknown")
+        actual_display = _format_backend_name(actual)
+        expected_display = _format_backend_name(expected)
         correct = result["routing"].get("correct", False)
         status = "" if correct else ""
-        print(f"  Expected: {question['expected_backend']}, Actual: {actual} {status}")
+        print(f"  Expected: {expected_display}, Actual: {actual_display} {status}")
 
         # Evaluate retrieval (for KG queries)
         if question["expected_backend"] == "cohort":

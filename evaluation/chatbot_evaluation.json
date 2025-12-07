@@ -1,0 +1,245 @@
+[
+  {
+    "question_id": "Q1",
+    "question": "What is the default rate by grade?",
+    "question_type": "aggregation",
+    "expected_backend": "cohort",
+    "ground_truth_comparison": {
+      "matches_ground_truth": true,
+      "comparison_type": "key_metrics",
+      "explanation": "Relevant metrics found: 1/1 (from 3 total, 100.0%), Has numbers: True",
+      "actual_value": "According to the structured context, the default rates by grade are:\n\n* Grade A: 7.01%\n* Grade B: 15.14%\n* Grade C: 24.97%\n* Grade D: 33.09%\n* Grade E: 40.73%\n* Grade F: 47.02%\n* Grade G: 51.85%\n\nNote",
+      "expected_value": "Should mention: defaultRate, loanCount, avgInterestRate",
+      "tolerance_used": null
+    },
+    "chatbot_answer": "According to the structured context, the default rates by grade are:\n\n* Grade A: 7.01%\n* Grade B: 15.14%\n* Grade C: 24.97%\n* Grade D: 33.09%\n* Grade E: 40.73%\n* Grade F: 47.02%\n* Grade G: 51.85%\n\nNote that there is no information provided for default rates beyond the first five grades, as indicated in the answer text.",
+    "errors": [],
+    "skipped": false
+  },
+  {
+    "question_id": "Q2",
+    "question": "Which term (36 or 60 months) has a higher default rate?",
+    "question_type": "comparative",
+    "expected_backend": "cohort",
+    "ground_truth_comparison": {
+      "matches_ground_truth": true,
+      "comparison_type": "text",
+      "explanation": "Key phrases found: 6/7 (85.7%), Has comparison: True, Has number: True",
+      "actual_value": "Based on the provided data, the term with a higher default rate is 60 months, with a default rate of 0.35506129384634055. In contrast, the default rate for the 36-month term is significantly lower at ",
+      "expected_value": "60 months has higher default rate (~0.355 vs ~0.178)",
+      "tolerance_used": null
+    },
+    "chatbot_answer": "Based on the provided data, the term with a higher default rate is 60 months, with a default rate of 0.35506129384634055. In contrast, the default rate for the 36-month term is significantly lower at 0.1779876272106449. This suggests that borrowers with longer-term loans are more likely to default on their payments.",
+    "errors": [],
+    "skipped": false
+  },
+  {
+    "question_id": "Q3",
+    "question": "What is the default rate for grade B loans?",
+    "question_type": "factual",
+    "expected_backend": "cohort",
+    "ground_truth_comparison": {
+      "matches_ground_truth": true,
+      "comparison_type": "numeric",
+      "explanation": "Actual: 0.1514, Expected: 0.1510, Diff: 0.0004, Tolerance: 0.0200",
+      "actual_value": 0.1514,
+      "expected_value": 0.151,
+      "tolerance_used": 0.02
+    },
+    "chatbot_answer": "According to the structured context, the default rate for grade B loans is 0.1513983437343791 or approximately 15.14%. This information can be found in the \"results\" section of the JSON object under the key \"B\".",
+    "errors": [],
+    "skipped": false
+  },
+  {
+    "question_id": "Q4",
+    "question": "Compare default rates across income bands.",
+    "question_type": "aggregation",
+    "expected_backend": "cohort",
+    "ground_truth_comparison": {
+      "matches_ground_truth": true,
+      "comparison_type": "key_metrics",
+      "explanation": "Relevant metrics found: 1/1 (from 2 total, 100.0%), Has numbers: True",
+      "actual_value": "The default rate varies across income bands. The highest default rate is observed in the \"<50k\" band with a rate of 0.2520165674346363, while the lowest default rate is found in the \">150k\" band with ",
+      "expected_value": "Should mention: defaultRate, loanCount",
+      "tolerance_used": null
+    },
+    "chatbot_answer": "The default rate varies across income bands. The highest default rate is observed in the \"<50k\" band with a rate of 0.2520165674346363, while the lowest default rate is found in the \">150k\" band with a rate of 0.17578078257747995. The \"100k-150k\" and \"75k-100k\" bands have default rates of 0.1863341095084051 and 0.20651163152631927, respectively.",
+    "errors": [],
+    "skipped": false
+  },
+  {
+    "question_id": "Q5",
+    "question": "Which loan purpose has the highest default rate?",
+    "question_type": "comparative",
+    "expected_backend": "cohort",
+    "ground_truth_comparison": {
+      "matches_ground_truth": true,
+      "comparison_type": "text",
+      "explanation": "Key phrases found: 2/2 (100.0%), Has comparison: False, Has number: False",
+      "actual_value": "According to the provided data, the loan purpose with the highest default rate is \"small_business\" with a default rate of 0.3226751592356688. This is followed closely by \"medical\" with a default rate ",
+      "expected_value": "small_business typically has highest default rate",
+      "tolerance_used": null
+    },
+    "chatbot_answer": "According to the provided data, the loan purpose with the highest default rate is \"small_business\" with a default rate of 0.3226751592356688. This is followed closely by \"medical\" with a default rate of 0.24443017656500804 and \"moving\" with a default rate of 0.25789141414141414.",
+    "errors": [],
+    "skipped": false
+  },
+  {
+    "question_id": "Q6",
+    "question": "How does default rate differ between borrowers who rent versus those with a mortgage?",
+    "question_type": "comparative",
+    "expected_backend": "cohort",
+    "ground_truth_comparison": {
+      "matches_ground_truth": false,
+      "comparison_type": "text",
+      "explanation": "Critical entity not found. Expected: ['rent', 'than', 'mortgage'], Found in answer: ['rent', 'mortgage']",
+      "actual_value": "Based on our available data, we can provide insights on default rates for borrowers with different home ownership statuses. According to our records, borrowers who rent have a higher average default r",
+      "expected_value": "RENT typically has higher default rate than MORTGAGE",
+      "tolerance_used": null
+    },
+    "chatbot_answer": "Based on our available data, we can provide insights on default rates for borrowers with different home ownership statuses. According to our records, borrowers who rent have a higher average default rate of 12.5% compared to those with a mortgage, who have an average default rate of 8.2%. This disparity is likely due to the differences in financial stability and commitment between renters and homeowners.",
+    "errors": [],
+    "skipped": false
+  },
+  {
+    "question_id": "Q7",
+    "question": "What is the average interest rate for fully paid loans versus charged off loans?",
+    "question_type": "comparative",
+    "expected_backend": "cohort",
+    "ground_truth_comparison": {
+      "matches_ground_truth": false,
+      "comparison_type": "text",
+      "explanation": "Expected numbers not found. Expected: [12.64, 15.71], Found in answer: [10.23, 12.56]",
+      "actual_value": "Based on available data, we can analyze interest rates for fully paid and charged-off loans. According to our records, the average interest rate for fully paid loans is 10.23% with a loan count of 1,5",
+      "expected_value": "Fully Paid: ~12.64%, Charged Off: ~15.71% (Charged Off has higher interest rate)",
+      "tolerance_used": null
+    },
+    "chatbot_answer": "Based on available data, we can analyze interest rates for fully paid and charged-off loans. According to our records, the average interest rate for fully paid loans is 10.23% with a loan count of 1,500. In contrast, the average interest rate for charged-off loans stands at 12.56% with a loan count of 250.",
+    "errors": [],
+    "skipped": false
+  },
+  {
+    "question_id": "Q8",
+    "question": "Which three states have the highest average interest rates?",
+    "question_type": "ranking",
+    "expected_backend": "cohort",
+    "ground_truth_comparison": {
+      "matches_ground_truth": false,
+      "comparison_type": "text",
+      "explanation": "Expected numbers not found. Expected: [16.8, 15.5], Found in answer: [13.571355345911948, 13.586715270148806, 13.332987594762233]",
+      "actual_value": "According to the provided data, the three states with the highest average interest rates are:\n\n1. **AK**: 13.571355345911948%\n2. **AR**: 13.586715270148806%\n3. **WY**: 13.332987594762233%\n\nNote that t",
+      "expected_value": "Top states by interest rate should include states with rates around 15.5-16.8%",
+      "tolerance_used": null
+    },
+    "chatbot_answer": "According to the provided data, the three states with the highest average interest rates are:\n\n1. **AK**: 13.571355345911948%\n2. **AR**: 13.586715270148806%\n3. **WY**: 13.332987594762233%\n\nNote that these figures are based on the average interest rates across all loans in each state.",
+    "errors": [],
+    "skipped": false
+  },
+  {
+    "question_id": "Q9",
+    "question": "What is the default rate for grade C, 36-month loans?",
+    "question_type": "factual",
+    "expected_backend": "cohort",
+    "ground_truth_comparison": {
+      "matches_ground_truth": false,
+      "comparison_type": "behavior",
+      "explanation": "Expected: system should indicate that combined grade+term cohorts are not available, or provide grade c rate with a note about limitation. Found unanswerable keywords: False",
+      "actual_value": "The default rate for grade C, 36-month loans is 0.24973414470366606 or 24.97%. This information can be found in the structured context under the \"C\" key, where the loan count is 382727 and the default",
+      "expected_value": "system should indicate that combined grade+term cohorts are not available, or provide grade c rate with a note about limitation",
+      "tolerance_used": null
+    },
+    "chatbot_answer": "The default rate for grade C, 36-month loans is 0.24973414470366606 or 24.97%. This information can be found in the structured context under the \"C\" key, where the loan count is 382727 and the default rate is provided.",
+    "errors": [],
+    "skipped": false
+  },
+  {
+    "question_id": "Q10",
+    "question": "Should we approve a $15,000, 36-month loan for a borrower earning $80,000 with 18% DTI and grade B?",
+    "question_type": "prediction",
+    "expected_backend": "predict",
+    "ground_truth_comparison": {
+      "comparison_type": "none",
+      "explanation": "No ground truth available - question will be answered by LLM without verifiable metrics"
+    },
+    "chatbot_answer": "",
+    "errors": [],
+    "skipped": true
+  },
+  {
+    "question_id": "Q11",
+    "question": "What is the predicted default probability for a borrower with grade F, 60-month term, and $20,000 annual income?",
+    "question_type": "prediction",
+    "expected_backend": "predict",
+    "ground_truth_comparison": {
+      "comparison_type": "none",
+      "explanation": "No ground truth available - question will be answered by LLM without verifiable metrics"
+    },
+    "chatbot_answer": "",
+    "errors": [],
+    "skipped": true
+  },
+  {
+    "question_id": "Q12",
+    "question": "Compare default rates for debt_consolidation versus credit_card loans.",
+    "question_type": "comparative",
+    "expected_backend": "cohort",
+    "ground_truth_comparison": {
+      "matches_ground_truth": false,
+      "comparison_type": "text",
+      "explanation": "Critical entity not found. Expected: ['debt_consolidation'], Found in answer: []",
+      "actual_value": "Based on our portfolio data, I can provide insights on default rates for debt consolidation versus credit card loans. For debt consolidation loans, the default rate is 2.5% with a total of 15,000 loan",
+      "expected_value": "debt_consolidation typically has higher default rate",
+      "tolerance_used": null
+    },
+    "chatbot_answer": "Based on our portfolio data, I can provide insights on default rates for debt consolidation versus credit card loans. For debt consolidation loans, the default rate is 2.5% with a total of 15,000 loans. In contrast, the default rate for credit card loans is 4.8% with a loan count of 30,000. Overall, the default rate for debt consolidation loans is significantly lower than that of credit card loans.",
+    "errors": [],
+    "skipped": false
+  },
+  {
+    "question_id": "Q13",
+    "question": "What is the current employer of a specific borrower in the dataset?",
+    "question_type": "unanswerable",
+    "expected_backend": "unknown",
+    "ground_truth_comparison": {
+      "matches_ground_truth": true,
+      "comparison_type": "behavior",
+      "explanation": "Expected: system should indicate this information is not available in the dataset. Found unanswerable keywords: True",
+      "actual_value": "I can currently answer questions about aggregate statistics by grade, term, purpose, home ownership, income band, or state. I can also predict default probability for specific loan applicants. However",
+      "expected_value": "system should indicate this information is not available in the dataset",
+      "tolerance_used": null
+    },
+    "chatbot_answer": "I can currently answer questions about aggregate statistics by grade, term, purpose, home ownership, income band, or state. I can also predict default probability for specific loan applicants. However, I don't have access to individual borrower details like employer names, specific loan IDs, or other personal information that's not part of the aggregate analytics.",
+    "errors": [],
+    "skipped": false
+  },
+  {
+    "question_id": "Q14",
+    "question": "What is the default rate for loans issued in 2015?",
+    "question_type": "factual",
+    "expected_backend": "cohort",
+    "ground_truth_comparison": {
+      "comparison_type": "none",
+      "explanation": "No ground truth available - question will be answered by LLM without verifiable metrics"
+    },
+    "chatbot_answer": "",
+    "errors": [],
+    "skipped": true
+  },
+  {
+    "question_id": "Q15",
+    "question": "What is the average loan amount for different income bands?",
+    "question_type": "aggregation",
+    "expected_backend": "cohort",
+    "ground_truth_comparison": {
+      "matches_ground_truth": true,
+      "comparison_type": "key_metrics",
+      "explanation": "Relevant metrics found: 1/1 (from 2 total, 100.0%), Has numbers: True",
+      "actual_value": "Based on the provided context, the average loan amounts for different income bands are:\n\n* 100k-150k: $19,731\n* 50k-75k: $13,552\n* 75k-100k: $16,944\n* <50k: $9,332\n* >150k: $23,194\n\nThese average loan",
+      "expected_value": "Should mention: avgLoanAmount, loanCount",
+      "tolerance_used": null
+    },
+    "chatbot_answer": "Based on the provided context, the average loan amounts for different income bands are:\n\n* 100k-150k: $19,731\n* 50k-75k: $13,552\n* 75k-100k: $16,944\n* <50k: $9,332\n* >150k: $23,194\n\nThese average loan amounts are based on the provided data.",
+    "errors": [],
+    "skipped": false
+  }
+]

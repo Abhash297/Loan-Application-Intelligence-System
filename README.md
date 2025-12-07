@@ -38,14 +38,11 @@ archive/
 │   ├── api.py                         # FastAPI REST API
 │   ├── chat_ollama.py                 # LLM chatbot interface
 │   ├── kg_cohorts.py                  # Knowledge graph construction
-│   └── evaluate_system.py             # Evaluation script
+│   ├── evaluate_routing.py            # Routing and retrieval evaluation
+│   └── evaluate_chatbot.py            # End-to-end chatbot evaluation
 │
 ├── scripts/                           # Utility scripts
-│   ├── demo_predict.py                # Demo script for /predict endpoint
-│   ├── test_risky_loan.py             # Test script for risky loan scenarios
-│   ├── test_sparql.py                 # SPARQL query examples
-│   ├── find_low_risk_demo.py         # Helper to find low-risk examples
-│   └── find_rejected_example.py      # Helper to find rejected examples
+│   └── test_sparql.py                 # SPARQL query examples for KG testing
 │
 ├── artifacts/                         # Saved models and KG
 │   ├── loan_classifier_final.pkl      # Trained XGBoost model (2.2MB)
@@ -59,7 +56,8 @@ archive/
 │
 └── evaluation/                        # Evaluation data
     ├── evaluation_questions.json      # Test questions (15 questions)
-    └── evaluation_results.json        # Evaluation metrics
+    ├── evaluation_results.json        # Routing/retrieval evaluation results
+    └── chatbot_evaluation.json        # Chatbot ground truth comparison results
 ```
 
 ### Key Files
@@ -77,9 +75,11 @@ archive/
 - `src/chat_ollama.py`: Interactive chatbot using Ollama LLM
 
 **Evaluation:**
-- `src/evaluate_system.py`: Automated evaluation script
+- `src/evaluate_routing.py`: System-level evaluation (routing accuracy, retrieval quality)
+- `src/evaluate_chatbot.py`: End-to-end chatbot evaluation (LLM routing + answer generation vs ground truth)
 - `evaluation/evaluation_questions.json`: 15 test questions covering all query types
-- `evaluation/evaluation_results.json`: Detailed evaluation metrics
+- `evaluation/evaluation_results.json`: Routing and retrieval evaluation metrics
+- `evaluation/chatbot_evaluation.json`: Chatbot ground truth comparison results
 
 ## Documentation
 
@@ -104,6 +104,13 @@ archive/
 - **[docs/RETRIEVAL_LOGIC.md](docs/RETRIEVAL_LOGIC.md)**: Complete explanation of retrieval logic for both KG and ML model backends
 
 - **[docs/KG_EXPLANATION.md](docs/KG_EXPLANATION.md)**: Detailed explanation of the knowledge graph structure and design
+
+- **[docs/CHATBOT_EVALUATION.md](docs/CHATBOT_EVALUATION.md)**: Complete guide to chatbot evaluation, including:
+  - How to run the evaluation script
+  - Evaluation types (numeric, text, behavior, key metrics)
+  - Context-aware metric checking
+  - Troubleshooting common issues
+  - Comparison with routing evaluation
 
 ## Quick Start
 
@@ -179,6 +186,70 @@ curl -X POST http://localhost:8000/predict \
 python src/chat_ollama.py
 # Then type: "What is the default rate by grade?"
 ```
+
+## Evaluation
+
+The system includes two evaluation scripts for comprehensive testing:
+
+### 1. System-Level Evaluation (`evaluate_routing.py`)
+
+Tests routing accuracy and retrieval quality at the API level:
+
+```bash
+# Make sure API is running first
+uvicorn src.api:app --reload
+
+# Run routing evaluation
+python src/evaluate_routing.py
+```
+
+**What it evaluates:**
+- Routing accuracy (KG vs ML model vs unknown)
+- Retrieval quality (compares API results against KG ground truth)
+- Answer quality (heuristic-based checks for numbers, coherence)
+
+**Output:** `evaluation_results.json`
+
+### 2. End-to-End Chatbot Evaluation (`evaluate_chatbot.py`)
+
+Tests the full chatbot pipeline (LLM routing + LLM answer generation) against ground truth:
+
+```bash
+# Make sure both API and Ollama are running
+uvicorn src.api:app --reload  # Terminal 1
+ollama serve                   # Terminal 2
+
+# Run chatbot evaluation
+python src/evaluate_chatbot.py
+```
+
+**What it evaluates:**
+- LLM-based routing (more sophisticated than keyword-based)
+- LLM answer generation (extracts correct specific answers from multiple results)
+- Ground truth comparison (numeric, text, behavior, and key metrics matching)
+- Automatically skips questions without ground truth (e.g., Q10, Q11, Q14)
+
+**Output:** `evaluation/chatbot_evaluation.json`
+
+**Debug information:**
+- Shows route chosen (cohort/predict/unknown)
+- Shows API results count and data structure
+- Shows full answer length (helps detect truncation)
+- Helps diagnose routing issues or LLM non-determinism
+
+**Key features:**
+- Context-aware metric checking (only checks metrics relevant to the question)
+- Critical entity detection (catches hallucinations with wrong entity names)
+- Number verification (catches hallucinations with wrong numbers)
+- Range checking (for ranking questions)
+
+**Why two scripts?**
+- `evaluate_routing.py`: Tests system components (API routing, KG retrieval) separately
+- `evaluate_chatbot.py`: Tests what users actually experience (full chatbot with LLM)
+
+The chatbot evaluation is more realistic since it uses LLM to extract specific answers (e.g., "grade B default rate = 0.151") from multiple results, while the API evaluation would just return all grades.
+
+**See [docs/CHATBOT_EVALUATION.md](docs/CHATBOT_EVALUATION.md) for detailed documentation.**
 
 ## System Architecture
 

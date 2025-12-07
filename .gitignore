@@ -4,7 +4,8 @@ data/cleaned_loan_dataset.csv
 data/backup data/
 Inductiv_AI_Engineer_Assignment.pdf
 Inductiv Take-Home Assignment_ AI Engineer.pdf
-
+CRITICAL_REQUIREMENTS_ASSESSMENT.md
+DELIVERABLES_CHECKLIST.md
 # Python cache
 __pycache__/
 *.py[cod]

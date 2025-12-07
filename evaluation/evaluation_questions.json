@@ -75,6 +75,7 @@
       "expected_dimension": "status",
       "ground_truth": {
         "source": "KG cohorts",
+        "expected_answer": "Fully Paid: ~12.64%, Charged Off: ~15.71% (Charged Off has higher interest rate)",
         "key_metrics": ["avgInterestRate"]
       }
     },
@@ -86,6 +87,7 @@
       "expected_dimension": "state",
       "ground_truth": {
         "source": "KG cohorts",
+        "expected_answer": "Top states by interest rate should include states with rates around 15.5-16.8%",
         "key_metrics": ["avgInterestRate"]
       }
     },
@@ -97,7 +99,8 @@
       "expected_dimension": "grade",
       "ground_truth": {
         "source": "KG cohorts",
-        "note": "May require combining grade and term cohorts"
+        "expected_behavior": "System should indicate that combined grade+term cohorts are not available, or provide grade C rate with a note about limitation",
+        "note": "System cannot answer combined grade+term queries. Grade C overall rate is ~0.25, but this is not specific to 36-month loans."
       }
     },
     {

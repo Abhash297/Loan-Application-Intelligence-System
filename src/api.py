@@ -168,8 +168,7 @@ def predict(req: PredictRequest) -> PredictResponse:
 def _interpret_question_simple(question: str) -> Dict[str, Any]:
     """
     Very simple heuristic interpreter that maps a few patterns to
-    cohort queries. In a full system, replace this with an Ollama-based
-    LLM classifier + SPARQL generator.
+    cohort queries.
     """
     q_lower = question.lower()
 

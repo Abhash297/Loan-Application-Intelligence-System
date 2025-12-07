@@ -204,8 +204,9 @@ def _build_features_from_user() -> Dict[str, Any]:
 def route_question_with_llm(user_question: str) -> str:
     """
     Ask the LLM to decide which backend to use:
-    - 'cohort'  -> /ask
-    - 'predict' -> /predict
+    - 'cohort'  -> /ask (analytics over historical loans)
+    - 'predict' -> /predict (ML model for specific applicant)
+    - 'unknown' -> Cannot be answered with available data
 
     Returns a simple string label.
     """
@@ -214,15 +215,18 @@ def route_question_with_llm(user_question: str) -> str:
         content=(
             "You are a router for a loan analytics assistant. "
             "Decide whether the question is: "
-            "'cohort' (analytics over many historical loans) or "
-            "'predict' (run the ML model for a specific applicant). "
-            "Respond with ONLY one word: cohort or predict."
+            "'cohort' (analytics over many historical loans by grade, term, purpose, etc.), "
+            "'predict' (run the ML model to predict default probability for a specific loan applicant), or "
+            "'unknown' (asks for information not available in the dataset, like specific borrower details, employer names, etc.). "
+            "Respond with ONLY one word: cohort, predict, or unknown."
         ),
     )
     user = ChatTurn(role="user", content=user_question)
     raw = call_ollama([system, user]).strip().lower()
     if "predict" in raw:
         return "predict"
+    if "unknown" in raw or "cannot" in raw or "not available" in raw:
+        return "unknown"
     return "cohort"
 
 
@@ -306,6 +310,14 @@ def chat_once(question: str, features_for_predict: Dict[str, Any] | None = None)
 
         api_res = call_api_predict(features_for_predict)
         return summarize_predict_answer(features_for_predict, api_res)
+    elif route == "unknown":
+        # Question cannot be answered with available data
+        return (
+            "I can currently answer questions about aggregate statistics by grade, term, purpose, "
+            "home ownership, income band, or state. I can also predict default probability for specific loan applicants. "
+            "However, I don't have access to individual borrower details like employer names, specific loan IDs, "
+            "or other personal information that's not part of the aggregate analytics."
+        )
     else:
         api_res = call_api_ask(question)
         return summarize_cohort_answer(question, api_res)

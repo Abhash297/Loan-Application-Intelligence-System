@@ -22,8 +22,7 @@ The routing logic follows a 2-step process:
 def _interpret_question_simple(question: str) -> Dict[str, Any]:
     """
     Very simple heuristic interpreter that maps a few patterns to
-    KG queries or ML model predictions. In a full system, replace this with an Ollama-based
-    LLM classifier + SPARQL generator.
+    KG queries or ML model predictions.
     """
     q_lower = question.lower()
 
