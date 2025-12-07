@@ -210,7 +210,7 @@ The chatbot answer doesn't contain the specific entity mentioned in the expected
 The chatbot answer doesn't contain the specific numeric values from the expected answer. This could indicate:
 - Hallucination (chatbot gave wrong numbers)
 - Number format issue (percentages vs decimals)
-
+<!-- 
 ### Different answers between interactive chatbot and evaluation
 
 If the chatbot gives different answers when used interactively vs. during evaluation:
@@ -220,15 +220,15 @@ If the chatbot gives different answers when used interactively vs. during evalua
 3. **Check answer length**: If the answer is much shorter during evaluation, the LLM may be truncating due to non-determinism.
 4. **LLM non-determinism**: Ollama can give different answers each time. This is normal but can cause evaluation inconsistencies.
 
-**Solution**: The full chatbot answer is always stored in `evaluation/chatbot_evaluation.json` - check there to see the complete answer, not just the truncated console output.
+**Solution**: The full chatbot answer is always stored in `evaluation/chatbot_evaluation.json` - check there to see the complete answer, not just the truncated console output. -->
 
-## Best Practices
+<!-- ## Best Practices
 
 1. **Run both evaluations**: Use `evaluate_routing.py` for system-level testing and `evaluate_chatbot.py` for user-facing testing
 2. **Check skipped questions**: Review why questions were skipped and add ground truth if needed
 3. **Review hallucinations**: Pay attention to NO MATCH results - they may indicate LLM hallucinations
 4. **Update ground truth**: As you improve the system, update ground truth values to match actual KG/ML model outputs
-5. **Check full answers**: Always review the full answers in the JSON file, not just the truncated console output
+5. **Check full answers**: Always review the full answers in the JSON file, not just the truncated console output -->
 
 ## Example Output
 
@@ -268,5 +268,5 @@ Key Metrics Comparisons: 3/3 (100.0%)
 Overall Chatbot Accuracy: 7/12 (58.3%)
 ```
 
-**Note**: These are example results from a sample run. Actual results may vary due to LLM non-determinism. The evaluation script will show the actual accuracy for your specific run.
+<!-- **Note**: These are example results from a sample run. Actual results may vary due to LLM non-determinism. The evaluation script will show the actual accuracy for your specific run. -->
 
