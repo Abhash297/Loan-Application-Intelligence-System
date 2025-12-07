@@ -8,7 +8,7 @@ This folder contains screenshots demonstrating the system's functionality, organ
 
 FastAPI interactive documentation (Swagger UI) showing the available endpoints.
 
-![API Response](API/Screenshot%2025-12-08%at%03.23.41.png)
+![API Response](API/Screenshot%202025-12-08%20at%2003.23.41.png)
 
 ### API Response Example
 ![API Documentation](API/Screenshot%202025-12-05%20at%2017.03.00.png)
