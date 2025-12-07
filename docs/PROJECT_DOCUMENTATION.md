@@ -503,7 +503,7 @@ curl -X POST http://localhost:8000/predict \
 
 ### File Structure
 
-- `test_2.ipynb`: Model training and evaluation
+- `training_model.ipynb`: Model training and evaluation
 - `loan_classifier_final.pkl`: Saved model artifacts
 - `kg_cohorts.py`: KG construction script
 - `loan_cohorts.ttl`: Serialized knowledge graph

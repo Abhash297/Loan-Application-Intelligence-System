@@ -31,8 +31,8 @@ archive/
 │   └── KG_EXPLANATION.md              # Knowledge graph explanation
 │
 ├── notebooks/                         # Jupyter notebooks
-│   ├── test_1.ipynb                   # Initial exploration notebook
-│   └── test_2.ipynb                   # Model training pipeline
+│   ├── initial_data_cleaning.ipynb    # Initial data exploration and cleaning
+│   └── training_model.ipynb           # Model training pipeline
 │
 ├── src/                               # Source code
 │   ├── api.py                         # FastAPI REST API
@@ -63,7 +63,7 @@ archive/
 ### Key Files
 
 **Model Training:**
-- `notebooks/test_2.ipynb`: Complete model training pipeline with feature engineering, hyperparameter tuning, and evaluation
+- `notebooks/training_model.ipynb`: Complete model training pipeline with feature engineering, hyperparameter tuning, and evaluation
 
 **Knowledge Graph:**
 - `src/kg_cohorts.py`: Builds cohort-based KG from loan data
