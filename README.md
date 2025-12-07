@@ -64,6 +64,7 @@ archive/
 
 **Model Training:**
 - `notebooks/training_model.ipynb`: Complete model training pipeline with feature engineering, hyperparameter tuning, and evaluation
+- `artifacts/loan_classifier_final.pkl`: Trained XGBoost model (saved after training in the notebook)
 
 **Knowledge Graph:**
 - `src/kg_cohorts.py`: Builds cohort-based KG from loan data
