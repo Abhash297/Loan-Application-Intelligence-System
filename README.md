@@ -108,8 +108,6 @@ archive/
 - **[docs/CHATBOT_EVALUATION.md](docs/CHATBOT_EVALUATION.md)**: Complete guide to chatbot evaluation, including:
   - How to run the evaluation script
   - Evaluation types (numeric, text, behavior, key metrics)
-  - Context-aware metric checking
-  - Troubleshooting common issues
   - Comparison with routing evaluation
 
 ## Quick Start

@@ -88,45 +88,49 @@ Each result includes:
 - Ground truth comparison details
 - Match status
 - Explanation
-<!-- 
+
 ## Evaluation Types
 
 ### 1. Numeric Comparison
 
 For questions with `expected_value` in ground truth:
-- Extracts numeric value from chatbot answer
+- Extracts numeric value from chatbot answer (context-aware extraction)
 - Compares against expected value with tolerance
 - Example: Q3 - "What is the default rate for grade B loans?"
   - Expected: ~0.151 (15.1%)
   - Tolerance: 0.02
+  - Extracts the number associated with "grade B" specifically, not just the first number
 
 ### 2. Text Comparison
 
 For questions with `expected_answer` in ground truth:
 - Extracts key phrases from expected answer
-- Checks if chatbot answer contains critical entities
+- Checks if chatbot answer contains critical entities (required for match)
 - Verifies numbers match (for questions with specific values)
+- Handles number-based comparisons flexibly (checks numbers, not exact phrases)
 - Example: Q2 - "Which term has higher default rate?"
   - Expected: "60 months has higher default rate (~0.355 vs ~0.178)"
-  - Checks: Both numbers present, comparison term present
+  - Checks: Both numbers (60, 36) present, comparison term ("higher") present
 
 ### 3. Behavior Comparison
 
 For unanswerable questions with `expected_behavior`:
 - Checks if chatbot indicates information is not available
-- Looks for keywords like "not available", "cannot", "unable"
+- Looks for keywords like "not available", "cannot", "unable", "i can currently answer"
 - Example: Q13 - "What is the current employer of a specific borrower?"
   - Expected: System should indicate this information is not available
 
 ### 4. Key Metrics Comparison
 
 For questions with `key_metrics` in ground truth:
-- Context-aware: Only checks metrics relevant to the question
+- **Context-aware**: Only checks metrics relevant to the question
 - For "default rate" questions → only checks `defaultRate`
 - For "interest rate" questions → only checks `avgInterestRate`
+- For "loan amount" questions → only checks `avgLoanAmount`
 - Verifies answer mentions relevant metrics and contains numbers
 - Example: Q1 - "What is the default rate by grade?"
-  - Relevant metrics: Only `defaultRate` (not `loanCount` or `avgInterestRate`) -->
+  - Relevant metrics: Only `defaultRate` (not `loanCount` or `avgInterestRate`)
+  - Prevents false negatives when chatbot correctly answers but doesn't mention irrelevant metrics
 
 ## Key Features
 
@@ -136,7 +140,10 @@ The evaluation checks important keywords
 - **"default rate" questions** → Only checks `defaultRate`
 - **"interest rate" questions** → Only checks `avgInterestRate`
 - **"loan amount" questions** → Only checks `avgLoanAmount`
+- **"loan count" questions** → Only checks `loanCount`
 - **General questions** → Checks all listed metrics
+
+**Implementation:** This logic is in `src/evaluate_chatbot.py`, in the `evaluate_against_ground_truth()` function. It analyzes the question text to determine which metrics are relevant, then only checks those metrics instead of all listed metrics.
 
 This prevents false negatives when the chatbot correctly answers the question but doesn't mention irrelevant metrics.
 
@@ -204,14 +211,24 @@ The chatbot answer doesn't contain the specific numeric values from the expected
 - Hallucination (chatbot gave wrong numbers)
 - Number format issue (percentages vs decimals)
 
+### Different answers between interactive chatbot and evaluation
 
-<!-- 
+If the chatbot gives different answers when used interactively vs. during evaluation:
+
+1. **Check the route**: The debug output shows which route was chosen. If it's wrong, the LLM router may be inconsistent.
+2. **Check API results count**: If the API returns fewer results than expected, there may be a routing or KG query issue.
+3. **Check answer length**: If the answer is much shorter during evaluation, the LLM may be truncating due to non-determinism.
+4. **LLM non-determinism**: Ollama can give different answers each time. This is normal but can cause evaluation inconsistencies.
+
+**Solution**: The full chatbot answer is always stored in `evaluation/chatbot_evaluation.json` - check there to see the complete answer, not just the truncated console output.
+
 ## Best Practices
 
 1. **Run both evaluations**: Use `evaluate_routing.py` for system-level testing and `evaluate_chatbot.py` for user-facing testing
 2. **Check skipped questions**: Review why questions were skipped and add ground truth if needed
 3. **Review hallucinations**: Pay attention to NO MATCH results - they may indicate LLM hallucinations
-4. **Update ground truth**: As you improve the system, update ground truth values to match actual KG/ML model outputs -->
+4. **Update ground truth**: As you improve the system, update ground truth values to match actual KG/ML model outputs
+5. **Check full answers**: Always review the full answers in the JSON file, not just the truncated console output
 
 ## Example Output
 
@@ -243,11 +260,13 @@ Skipped (no ground truth): 3
   Q14: What is the default rate for loans issued in 2015?
 
 --- Ground Truth Accuracy (Chatbot Answers) ---
-Numeric Comparisons: 2/2 (100.0%)
-Text Comparisons: 5/7 (71.4%)
-Behavior Comparisons: 1/1 (100.0%)
+Numeric Comparisons: 1/1 (100.0%)
+Text Comparisons: 2/6 (33.3%)
+Behavior Comparisons: 1/2 (50.0%)
 Key Metrics Comparisons: 3/3 (100.0%)
 
-Overall Chatbot Accuracy: 11/13 (84.6%)
+Overall Chatbot Accuracy: 7/12 (58.3%)
 ```
+
+**Note**: These are example results from a sample run. Actual results may vary due to LLM non-determinism. The evaluation script will show the actual accuracy for your specific run.
 
