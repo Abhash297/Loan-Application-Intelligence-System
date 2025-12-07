@@ -47,7 +47,7 @@ The script will:
 
 ### Console Output
 
-For each question, you'll see:
+For each question, we'll see:
 - Question ID and text
 - **Route chosen** - Which backend the LLM router selected (cohort/predict/unknown)
 - **API Results Count** - How many results the API returned (for cohort questions)
@@ -59,9 +59,9 @@ For each question, you'll see:
 - Explanation of the comparison
 
 The debug information helps diagnose issues:
-- If routing is incorrect, you'll see the wrong route chosen
-- If API returns incomplete data, you'll see fewer results than expected
-- If LLM truncates the answer, you'll see a shorter answer length
+- If routing is incorrect, we'll see the wrong route chosen
+- If API returns incomplete data, we'll see fewer results than expected
+- If LLM truncates the answer, we'll see a shorter answer length
 
 ### Summary Statistics
 
@@ -88,7 +88,7 @@ Each result includes:
 - Ground truth comparison details
 - Match status
 - Explanation
-
+<!-- 
 ## Evaluation Types
 
 ### 1. Numeric Comparison
@@ -126,13 +126,13 @@ For questions with `key_metrics` in ground truth:
 - For "interest rate" questions → only checks `avgInterestRate`
 - Verifies answer mentions relevant metrics and contains numbers
 - Example: Q1 - "What is the default rate by grade?"
-  - Relevant metrics: Only `defaultRate` (not `loanCount` or `avgInterestRate`)
+  - Relevant metrics: Only `defaultRate` (not `loanCount` or `avgInterestRate`) -->
 
 ## Key Features
 
 ### Context-Aware Metric Checking
 
-The evaluation is smart about which metrics to check:
+The evaluation checks important keywords 
 - **"default rate" questions** → Only checks `defaultRate`
 - **"interest rate" questions** → Only checks `avgInterestRate`
 - **"loan amount" questions** → Only checks `avgLoanAmount`
@@ -204,23 +204,14 @@ The chatbot answer doesn't contain the specific numeric values from the expected
 - Hallucination (chatbot gave wrong numbers)
 - Number format issue (percentages vs decimals)
 
-### Different answers between interactive chatbot and evaluation
 
-If the chatbot gives different answers when used interactively vs. during evaluation:
-
-1. **Check the route**: The debug output shows which route was chosen. If it's wrong, the LLM router may be inconsistent.
-2. **Check API results count**: If the API returns fewer results than expected, there may be a routing or KG query issue.
-3. **Check answer length**: If the answer is much shorter during evaluation, the LLM may be truncating due to non-determinism.
-4. **LLM non-determinism**: Ollama can give different answers each time. This is normal but can cause evaluation inconsistencies.
-
-**Solution**: The full chatbot answer is always stored in `evaluation/chatbot_evaluation.json` - check there to see the complete answer, not just the truncated console output.
-
+<!-- 
 ## Best Practices
 
 1. **Run both evaluations**: Use `evaluate_routing.py` for system-level testing and `evaluate_chatbot.py` for user-facing testing
 2. **Check skipped questions**: Review why questions were skipped and add ground truth if needed
 3. **Review hallucinations**: Pay attention to NO MATCH results - they may indicate LLM hallucinations
-4. **Update ground truth**: As you improve the system, update ground truth values to match actual KG/ML model outputs
+4. **Update ground truth**: As you improve the system, update ground truth values to match actual KG/ML model outputs -->
 
 ## Example Output
 
