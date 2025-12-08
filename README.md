@@ -111,6 +111,13 @@ archive/
   - Evaluation types (numeric, text, behavior, key metrics)
   - Comparison with routing evaluation
 
+- **[docs/LIMITATIONS.md](docs/LIMITATIONS.md)**: Comprehensive list of project limitations across all components:
+  - ML model limitations (feature availability, class imbalance, threshold dependency)
+  - Knowledge Graph limitations (cohort dimensions, temporal queries, multi-dimensional queries)
+  - API limitations (keyword-based routing, error handling)
+  - Chatbot limitations (LLM non-determinism, answer accuracy, hallucination risk)
+  - System-wide limitations and known issues
+
 ## Quick Start
 
 ### Prerequisites
@@ -309,9 +316,15 @@ Large data files are gitignored:
 
 The trained model (`loan_classifier_final.pkl`) and knowledge graph (`loan_cohorts.ttl`) are included as they are required to run the system.
 
+## Limitations
+
+This project has known limitations across its components (ML model, Knowledge Graph, API, and Chatbot). See **[docs/LIMITATIONS.md](docs/LIMITATIONS.md)** for a comprehensive list of limitations, their impacts, and potential improvements.
+
 ## License
 
-This project was created as a take-home assignment for Inductiv AI Engineer position.
+This project was created as a take-home assignment for Inductiv AI Engineer position. The code, documentation, and implementation are the work of the project author.
+
+**Author:** Abhash Shrestha
 
 ## Contact
 
