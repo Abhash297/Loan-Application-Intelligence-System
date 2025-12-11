@@ -322,7 +322,7 @@ This project has known limitations across its components (ML model, Knowledge Gr
 
 ## License
 
-This project was created as a take-home assignment for Inductiv AI Engineer position. The code, documentation, and implementation are the work of the project author.
+The code, documentation, and implementation are the work of the project author.
 
 **Author:** Abhash Shrestha
 
